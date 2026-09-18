@@ -1,13 +1,61 @@
 {
   "source": "nodus-site_6.zip",
   "capabilities": [
-    {"capability":"application code","source":"archive","outcome":"replace differing files exactly","status":"implemented","next_action":"verify preview"},
-    {"capability":"Supabase connection","source":"existing external provider","outcome":"preserve","status":"implemented","next_action":"verify public data rendering"},
-    {"capability":"database schema and records","source":"existing external provider","outcome":"preserve without migration","status":"implemented","next_action":"none"},
-    {"capability":"authentication and admin access","source":"existing external provider","outcome":"preserve","status":"implemented","next_action":"verify route loads"},
-    {"capability":"uploaded assets","source":"archive and existing project","outcome":"preserve","status":"implemented","next_action":"verify rendering"},
-    {"capability":"secrets","source":"existing project configuration","outcome":"preserve; archive .env excluded","status":"implemented","next_action":"none"},
-    {"capability":"cutover","source":"existing preview","outcome":"not requested","status":"deferred","next_action":"none"},
-    {"capability":"verification","source":"local preview","outcome":"pending","status":"pending","next_action":"run and inspect preview"}
+    {
+      "capability": "application code",
+      "source": "archive",
+      "outcome": "replace differing files exactly",
+      "status": "implemented",
+      "next_action": "verify preview"
+    },
+    {
+      "capability": "Supabase connection",
+      "source": "existing external provider",
+      "outcome": "preserve",
+      "status": "implemented",
+      "next_action": "verify public data rendering"
+    },
+    {
+      "capability": "database schema and records",
+      "source": "existing external provider",
+      "outcome": "preserve without migration",
+      "status": "implemented",
+      "next_action": "none"
+    },
+    {
+      "capability": "authentication and admin access",
+      "source": "existing external provider",
+      "outcome": "preserve",
+      "status": "implemented",
+      "next_action": "verify route loads"
+    },
+    {
+      "capability": "uploaded assets",
+      "source": "archive and existing project",
+      "outcome": "preserve",
+      "status": "implemented",
+      "next_action": "verify rendering"
+    },
+    {
+      "capability": "secrets",
+      "source": "existing project configuration",
+      "outcome": "preserve; archive .env excluded",
+      "status": "implemented",
+      "next_action": "none"
+    },
+    {
+      "capability": "cutover",
+      "source": "existing preview",
+      "outcome": "not requested",
+      "status": "deferred",
+      "next_action": "none"
+    },
+    {
+      "capability": "verification",
+      "source": "local preview",
+      "outcome": "build passed; home rendered three animated logo tracks on pure white with original colors and no runtime errors",
+      "status": "verified",
+      "next_action": "none"
+    }
   ]
 }
