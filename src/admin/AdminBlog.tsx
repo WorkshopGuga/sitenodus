@@ -64,7 +64,8 @@ export default function AdminBlog() {
               <div className="grid gap-4 md:grid-cols-2">
                 <Campo label="Imagem de capa">
                   <UploadImagem bucket="blog" valor={novo.capa_url}
-                    onChange={(url) => setNovo({ ...novo, capa_url: url })} />
+                    onChange={(url) => setNovo({ ...novo, capa_url: url })}
+                    maxLargura={1600} maxAltura={900} />
                 </Campo>
                 <Campo label="Status">
                   <select className={input} value={novo.status}

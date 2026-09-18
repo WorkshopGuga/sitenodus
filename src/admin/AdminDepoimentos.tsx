@@ -54,7 +54,8 @@ export default function AdminDepoimentos() {
               </Campo>
               <Campo label="Foto de perfil">
                 <UploadImagem bucket="depoimentos" valor={novo.foto_url} formato="circulo"
-                  onChange={(url) => setNovo({ ...novo, foto_url: url })} />
+                  onChange={(url) => setNovo({ ...novo, foto_url: url })}
+                  maxLargura={480} maxAltura={480} />
               </Campo>
             </div>
             <div className="mt-5">

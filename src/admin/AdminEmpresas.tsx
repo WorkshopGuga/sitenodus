@@ -97,7 +97,8 @@ export default function AdminEmpresas() {
               <div className="md:col-span-2">
                 <Campo label="Logotipo">
                   <UploadImagem bucket="logos" valor={novo.logo_url}
-                    onChange={(url) => setNovo({ ...novo, logo_url: url })} />
+                    onChange={(url) => setNovo({ ...novo, logo_url: url })}
+                    maxLargura={800} maxAltura={240} />
                 </Campo>
               </div>
             </div>

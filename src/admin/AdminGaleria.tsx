@@ -50,7 +50,8 @@ export default function AdminGaleria() {
               </div>
               <Campo label="Imagem">
                 <UploadImagem bucket="galeria" valor={novo.imagem_url}
-                  onChange={(url) => setNovo({ ...novo, imagem_url: url })} />
+                  onChange={(url) => setNovo({ ...novo, imagem_url: url })}
+                  maxLargura={1600} maxAltura={1200} />
               </Campo>
             </div>
             <div className="mt-5">
