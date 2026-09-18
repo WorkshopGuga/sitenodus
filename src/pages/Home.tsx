@@ -7,10 +7,10 @@ import Footer from "../components/Footer";
 import { Section, Eyebrow, H2, Lead, CTAButton } from "../components/ui";
 import StepTimeline from "../components/StepTimeline";
 import CaseCard from "../components/CaseCard";
+import LogoMarquee from "../components/LogoMarquee";
 import { FRENTES } from "../content/frentes";
 import { PASSOS, SINTOMAS, CASES_FALLBACK, DEPOIMENTOS_FALLBACK } from "../content/site";
 import { useTabela } from "../lib/useTabela";
-import gustavoAsset from "../assets/gustavo-bettiol.jpg.asset.json";
 import type { EmpresaParceira, Depoimento, CaseItem } from "../lib/supabase";
 
 export default function Home() {
@@ -69,7 +69,7 @@ export default function Home() {
           nunca mostra nome de cliente em texto, e nunca fica com o título
           sozinho sem nada embaixo. */}
       {empresas.length > 0 && (
-        <section className="bg-paper px-5 md:px-10 py-16 md:py-24">
+        <section className="bg-white px-5 md:px-10 py-16 md:py-24">
           <div className="max-w-content mx-auto">
             <Reveal>
               <p className="text-ink/55 text-[14.5px] m-0 text-center">
@@ -77,15 +77,8 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal delay={120}>
-              <div className="mt-10 flex flex-wrap justify-center items-center gap-x-10 md:gap-x-16 gap-y-8">
-                {empresas.map((e) => (
-                  <img
-                    key={e.id}
-                    src={e.logo_url}
-                    alt={e.nome}
-                    className="h-8 md:h-10 w-auto object-contain opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
-                  />
-                ))}
+              <div className="mt-10">
+                <LogoMarquee empresas={empresas} />
               </div>
             </Reveal>
           </div>
@@ -180,19 +173,13 @@ export default function Home() {
             </H2>
           </Reveal>
           <div className="mt-14 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
-            {cases.slice(0, 3).map((c) => (
-              <CaseCard key={c.id} caso={c} tone="dark" expandable />
+            {cases.slice(0, 4).map((c) => (
+              <CaseCard key={c.id} caso={c} tone="dark" />
             ))}
           </div>
           <Reveal delay={200}>
-            <Link
-              to="/cases"
-              className="inline-flex items-center gap-2 mt-10 px-8 py-[15px] rounded-full bg-gradient-to-br from-accent to-accent-deep text-white text-[16px] font-semibold no-underline shadow-[0_10px_36px_rgba(29,78,216,.42)] transition-all hover:gap-3"
-            >
+            <Link to="/cases" className="inline-block mt-10 text-accent text-[15px] font-medium no-underline border-b border-accent/40 pb-[3px]">
               Ver todos os cases
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
             </Link>
           </Reveal>
         </div>
@@ -242,8 +229,9 @@ export default function Home() {
       <Section tone="light">
         <div className="grid gap-8 md:gap-16 items-center [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
           <Reveal>
-            <div className="max-w-[400px] rounded-[24px] overflow-hidden bg-gradient-to-br from-surface to-accent-deep">
-              <img src={gustavoAsset.url} alt="Gustavo Bettiol" className="block w-full h-auto" />
+            <div className="aspect-[4/5] max-w-[400px] rounded-[24px] overflow-hidden bg-gradient-to-br from-surface to-accent-deep grid place-items-center text-white/50 text-[13.5px]">
+              {/* Troque por: <img src="/gustavo.jpg" alt="Gustavo Bettiol" className="w-full h-full object-cover" /> */}
+              Foto do Gustavo
             </div>
           </Reveal>
           <Reveal delay={140}>
