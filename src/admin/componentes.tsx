@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { comprimirImagem } from "../lib/comprimirImagem";
 
 export const input =
   "w-full bg-white/[.05] border border-white/12 rounded-lg px-3.5 py-2.5 text-[14.5px] text-white placeholder:text-white/30 focus:border-accent outline-none";
@@ -44,21 +45,35 @@ export function Cabecalho({ titulo, descricao, acao }:
   );
 }
 
-/** Upload para um bucket do Storage, devolvendo a URL pública. */
-export function UploadImagem({ bucket, valor, onChange, formato = "retangulo" }:
-  { bucket: string; valor: string | null; onChange: (url: string) => void; formato?: "retangulo" | "circulo" }) {
+/** Upload para um bucket do Storage, devolvendo a URL pública. A imagem é
+ *  redimensionada e comprimida no navegador antes de subir — evita logo de
+ *  3MB pra ser exibido em 40px de altura. Ajuste maxLargura/maxAltura
+ *  conforme o tamanho real de exibição de cada uso. */
+export function UploadImagem({
+  bucket, valor, onChange, formato = "retangulo", maxLargura = 1600, maxAltura = 1600,
+}: {
+  bucket: string; valor: string | null; onChange: (url: string) => void;
+  formato?: "retangulo" | "circulo"; maxLargura?: number; maxAltura?: number;
+}) {
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState("");
 
   const enviar = async (arquivo: File) => {
     setEnviando(true); setErro("");
-    const ext = arquivo.name.split(".").pop();
-    const nome = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-    const { error } = await supabase.storage.from(bucket).upload(nome, arquivo, { upsert: false });
-    if (error) { setErro(error.message); setEnviando(false); return; }
-    const { data } = supabase.storage.from(bucket).getPublicUrl(nome);
-    onChange(data.publicUrl);
-    setEnviando(false);
+    try {
+      const { blob, extensao, tipo } = await comprimirImagem(arquivo, { maxLargura, maxAltura });
+      const nome = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extensao}`;
+      const { error } = await supabase.storage
+        .from(bucket)
+        .upload(nome, blob, { upsert: false, contentType: tipo || arquivo.type });
+      if (error) throw error;
+      const { data } = supabase.storage.from(bucket).getPublicUrl(nome);
+      onChange(data.publicUrl);
+    } catch (e: any) {
+      setErro(e?.message ?? "Erro ao enviar imagem");
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
