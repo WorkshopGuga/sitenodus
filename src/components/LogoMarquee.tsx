@@ -1,14 +1,16 @@
 import type { EmpresaParceira } from "../lib/supabase";
 
 /**
- * Três esteiras horizontais infinitas, cada uma correndo num sentido
- * (direita, esquerda, direita). Cada linha duplica a própria lista de
- * logos lado a lado — é isso que faz o loop parecer contínuo, sem salto
- * quando a esteira reinicia.
+ * Três esteiras horizontais infinitas. A linha de cada logo é escolhida
+ * no painel (campo "linha"), não inferida por posição — assim o que se
+ * vê no admin bate exatamente com o que aparece no site.
  */
 export default function LogoMarquee({ empresas }: { empresas: EmpresaParceira[] }) {
-  const linhas: EmpresaParceira[][] = [[], [], []];
-  empresas.forEach((e, i) => linhas[i % 3].push(e));
+  const linhas: EmpresaParceira[][] = [
+    empresas.filter((e) => e.linha === 1),
+    empresas.filter((e) => e.linha === 2),
+    empresas.filter((e) => e.linha === 3),
+  ];
 
   const direcoes: ("right" | "left" | "right")[] = ["right", "left", "right"];
 

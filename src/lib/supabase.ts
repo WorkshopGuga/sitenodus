@@ -20,7 +20,7 @@ export const supabase = createClient(url, key);
 /* ---------- tipos das tabelas ---------- */
 export type EmpresaParceira = {
   id: string; nome: string; logo_url: string;
-  site_url: string | null; tamanho_px: number; ordem: number; ativo: boolean;
+  site_url: string | null; tamanho_px: number; linha: number; ordem: number; ativo: boolean;
 };
 
 export type Depoimento = {
