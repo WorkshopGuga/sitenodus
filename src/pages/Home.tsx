@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import gustavoFoto from "../assets/gustavo-bettiol.jpg.asset.json";
 import KnotField from "../components/KnotField";
 import Reveal from "../components/Reveal";
 import Navbar from "../components/Navbar";
@@ -229,9 +230,8 @@ export default function Home() {
       <Section tone="light">
         <div className="grid gap-8 md:gap-16 items-center [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
           <Reveal>
-            <div className="aspect-[4/5] max-w-[400px] rounded-[24px] overflow-hidden bg-gradient-to-br from-surface to-accent-deep grid place-items-center text-white/50 text-[13.5px]">
-              {/* Troque por: <img src="/gustavo.jpg" alt="Gustavo Bettiol" className="w-full h-full object-cover" /> */}
-              Foto do Gustavo
+            <div className="aspect-[4/5] max-w-[400px] rounded-[24px] overflow-hidden">
+              <img src={gustavoFoto.url} alt="Gustavo Bettiol" className="w-full h-full object-cover" />
             </div>
           </Reveal>
           <Reveal delay={140}>
