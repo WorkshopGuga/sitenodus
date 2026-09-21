@@ -9,6 +9,10 @@ export type Frente = {
    *  só nesse caso faz sentido animar como timeline. Ofertas em
    *  paralelo (a maioria) ficam em grade. */
   sequencial?: boolean;
+  /** Se definido, a página mostra depoimentos com essas origens
+   *  (ex: ["treinamento","mentoria"] na Capacitação). Sem isso, a
+   *  página não tem seção de depoimento. */
+  depoimentosOrigem?: string[];
   paraQuem: string[];
 };
 
@@ -56,6 +60,7 @@ export const FRENTES: Frente[] = [
     slug: "capacitacao",
     nome: "Capacitação",
     titulo: "O time sabendo usar o que existe",
+    depoimentosOrigem: ["treinamento", "mentoria"],
     resumo:
       "Tecnologia que ninguém sabe operar não muda nada. Formamos equipes dentro da empresa e também profissionais em treinamentos abertos e mentoria.",
     chamada: "Quando o treinamento é prático, o aluno sai usando.",

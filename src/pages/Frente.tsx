@@ -3,12 +3,23 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import StepTimeline from "../components/StepTimeline";
+import DepoimentosGrid from "../components/DepoimentosGrid";
 import { Section, Eyebrow, H2, CTAButton, PageHero } from "../components/ui";
 import { FRENTES, getFrente } from "../content/frentes";
+import { useTabela } from "../lib/useTabela";
+import type { Depoimento } from "../lib/supabase";
 
 export default function Frente({ slug }: { slug: string }) {
   const f = getFrente(slug);
   const outras = FRENTES.filter((x) => x.slug !== slug);
+
+  // Só busca depoimentos quando a frente define origem — senão usa um
+  // filtro que nunca casa, pra manter o hook incondicional (regra do React)
+  // sem trazer depoimento nenhum de frente que não pediu.
+  const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", [], {
+    filtro: (q) =>
+      f.depoimentosOrigem ? q.in("origem", f.depoimentosOrigem) : q.eq("id", "00000000-0000-0000-0000-000000000000"),
+  });
 
   return (
     <>
@@ -55,6 +66,18 @@ export default function Frente({ slug }: { slug: string }) {
           ))}
         </div>
       </Section>
+
+      {/* depoimentos desta frente (só quando há origem definida e resultado) */}
+      {f.depoimentosOrigem && depoimentos.length > 0 && (
+        <Section tone="dark">
+          <Reveal>
+            <Eyebrow>O que dizem quem passou por isso</Eyebrow>
+          </Reveal>
+          <div className="mt-11">
+            <DepoimentosGrid depoimentos={depoimentos} tone="dark" />
+          </div>
+        </Section>
+      )}
 
       {/* outras frentes */}
       <Section tone="light">
