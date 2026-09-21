@@ -9,6 +9,7 @@ import { Section, Eyebrow, H2, Lead, CTAButton } from "../components/ui";
 import StepTimeline from "../components/StepTimeline";
 import CaseCard from "../components/CaseCard";
 import LogoMarquee from "../components/LogoMarquee";
+import DepoimentosGrid from "../components/DepoimentosGrid";
 import { FRENTES } from "../content/frentes";
 import { PASSOS, SINTOMAS, CASES_FALLBACK, DEPOIMENTOS_FALLBACK } from "../content/site";
 import { useTabela } from "../lib/useTabela";
@@ -26,7 +27,9 @@ export default function Home() {
   }, []);
 
   const { dados: empresas } = useTabela<EmpresaParceira>("empresas_parceiras");
-  const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", DEPOIMENTOS_FALLBACK as any);
+  const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", DEPOIMENTOS_FALLBACK as any, {
+    filtro: (q) => q.eq("origem", "cliente"),
+  });
   const { dados: cases } = useTabela<CaseItem>("cases", CASES_FALLBACK as any, {
     filtro: (q) => q.eq("destaque", true),
   });
@@ -197,32 +200,13 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ---------- DEPOIMENTOS ---------- */}
+      {/* ---------- DEPOIMENTOS (origem: cliente) ---------- */}
       <Section tone="dark">
         <Reveal>
           <Eyebrow>O que dizem quem passou por isso</Eyebrow>
         </Reveal>
-        <div className="mt-11 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(270px,1fr))]">
-          {depoimentos.slice(0, 3).map((d, i) => (
-            <Reveal key={d.id} delay={i * 100}>
-              <figure className="m-0 h-full p-7 rounded-[20px] bg-white/[.035] border border-white/[.08] flex flex-col justify-between">
-                <blockquote className="m-0 text-white text-[16px] leading-[1.6] font-light">{d.texto}</blockquote>
-                <figcaption className="mt-7 flex items-center gap-3.5">
-                  {d.foto_url ? (
-                    <img src={d.foto_url} alt={d.autor} className="w-11 h-11 rounded-full object-cover border border-white/15" />
-                  ) : (
-                    <span className="w-11 h-11 rounded-full bg-gradient-to-br from-accent to-accent-deep grid place-items-center text-white text-[15px] font-medium">
-                      {d.autor.charAt(0)}
-                    </span>
-                  )}
-                  <span>
-                    <span className="block text-white text-[15px] font-medium">{d.autor}</span>
-                    {d.cargo && <span className="block text-white/45 text-[13.5px]">{d.cargo}</span>}
-                  </span>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
+        <div className="mt-11">
+          <DepoimentosGrid depoimentos={depoimentos} tone="dark" />
         </div>
       </Section>
 
