@@ -13,6 +13,9 @@ export type Frente = {
    *  (ex: ["treinamento","mentoria"] na Capacitação). Sem isso, a
    *  página não tem seção de depoimento. */
   depoimentosOrigem?: string[];
+  /** Mostra a galeria de fotos (treinamentos/eventos/bastidores) nesta
+   *  página. Hoje só a Capacitação usa isso. */
+  galeria?: boolean;
   paraQuem: string[];
 };
 
@@ -61,6 +64,7 @@ export const FRENTES: Frente[] = [
     nome: "Capacitação",
     titulo: "O time sabendo usar o que existe",
     depoimentosOrigem: ["treinamento", "mentoria"],
+    galeria: true,
     resumo:
       "Tecnologia que ninguém sabe operar não muda nada. Formamos equipes dentro da empresa e também profissionais em treinamentos abertos e mentoria.",
     chamada: "Quando o treinamento é prático, o aluno sai usando.",
