@@ -4,21 +4,26 @@ import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import StepTimeline from "../components/StepTimeline";
 import DepoimentosGrid from "../components/DepoimentosGrid";
+import GaleriaGrid from "../components/GaleriaGrid";
 import { Section, Eyebrow, H2, CTAButton, PageHero } from "../components/ui";
 import { FRENTES, getFrente } from "../content/frentes";
 import { useTabela } from "../lib/useTabela";
-import type { Depoimento } from "../lib/supabase";
+import type { Depoimento, GaleriaImagem } from "../lib/supabase";
 
 export default function Frente({ slug }: { slug: string }) {
   const f = getFrente(slug);
   const outras = FRENTES.filter((x) => x.slug !== slug);
 
-  // Só busca depoimentos quando a frente define origem — senão usa um
+  // Só busca depoimentos/galeria quando a frente pede — senão usa um
   // filtro que nunca casa, pra manter o hook incondicional (regra do React)
-  // sem trazer depoimento nenhum de frente que não pediu.
+  // sem trazer conteúdo de frente que não configurou isso.
   const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", [], {
     filtro: (q) =>
       f.depoimentosOrigem ? q.in("origem", f.depoimentosOrigem) : q.eq("id", "00000000-0000-0000-0000-000000000000"),
+  });
+
+  const { dados: galeria } = useTabela<GaleriaImagem>("galeria_imagens", [], {
+    filtro: (q) => (f.galeria ? q : q.eq("id", "00000000-0000-0000-0000-000000000000")),
   });
 
   return (
@@ -66,6 +71,18 @@ export default function Frente({ slug }: { slug: string }) {
           ))}
         </div>
       </Section>
+
+      {/* galeria (só quando a frente pede e há imagem ativa) */}
+      {f.galeria && galeria.length > 0 && (
+        <Section tone="light">
+          <Reveal>
+            <Eyebrow light>Como acontece na prática</Eyebrow>
+          </Reveal>
+          <div className="mt-8">
+            <GaleriaGrid imagens={galeria} />
+          </div>
+        </Section>
+      )}
 
       {/* depoimentos desta frente (só quando há origem definida e resultado) */}
       {f.depoimentosOrigem && depoimentos.length > 0 && (
