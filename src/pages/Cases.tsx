@@ -11,7 +11,7 @@ import { CATEGORIAS_CASE } from "../content/categorias";
 import type { CaseItem, EmpresaParceira } from "../lib/supabase";
 
 export default function Cases() {
-  const { dados: cases } = useTabela<CaseItem>("cases", CASES_FALLBACK as any);
+  const { dados: cases } = useTabela<CaseItem>("cases", CASES_FALLBACK as any, { chave: "cases:todos" });
   const { dados: empresas } = useTabela<EmpresaParceira>("empresas_parceiras");
   const [filtro, setFiltro] = useState<string>("Todos");
 
