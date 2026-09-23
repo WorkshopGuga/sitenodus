@@ -26,7 +26,7 @@ export type EmpresaParceira = {
 export type Depoimento = {
   id: string; texto: string; autor: string;
   cargo: string | null; foto_url: string | null;
-  origem: string | null; ordem: number; ativo: boolean;
+  origem: string | null; tags_servico: string[]; ordem: number; ativo: boolean;
 };
 
 export type CaseItem = {
