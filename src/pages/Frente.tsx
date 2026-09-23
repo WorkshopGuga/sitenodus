@@ -8,11 +8,18 @@ import GaleriaGrid from "../components/GaleriaGrid";
 import { Section, Eyebrow, H2, CTAButton, PageHero } from "../components/ui";
 import { FRENTES, getFrente } from "../content/frentes";
 import { useTabela } from "../lib/useTabela";
+import { useSeo } from "../lib/useSeo";
 import type { Depoimento, GaleriaImagem } from "../lib/supabase";
 
 export default function Frente({ slug }: { slug: string }) {
   const f = getFrente(slug);
   const outras = FRENTES.filter((x) => x.slug !== slug);
+
+  useSeo({
+    titulo: f.seoTitulo,
+    descricao: f.seoDescricao,
+    caminho: `/${f.slug}`,
+  });
 
   // Só busca depoimentos/galeria quando a frente pede — senão usa um
   // filtro que nunca casa, pra manter o hook incondicional (regra do React)

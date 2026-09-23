@@ -14,8 +14,16 @@ import { FRENTES } from "../content/frentes";
 import { PASSOS, SINTOMAS, CASES_FALLBACK, DEPOIMENTOS_FALLBACK } from "../content/site";
 import { useTabela } from "../lib/useTabela";
 import type { EmpresaParceira, Depoimento, CaseItem } from "../lib/supabase";
+import { useSeo } from "../lib/useSeo";
 
 export default function Home() {
+  useSeo({
+    titulo: "nodus tecnologia — Sistemas, automação e IA para empresas",
+    descricao:
+      "Entramos na operação, encontramos onde gente boa está fazendo trabalho de máquina, e resolvemos. Sistemas sob medida, automação e capacitação em IA.",
+    caminho: "/",
+  });
+
   const [frente, setFrente] = useState(0);
   const [sy, setSy] = useState(0);
   const F = FRENTES[frente];

@@ -9,8 +9,16 @@ import { useTabela } from "../lib/useTabela";
 import { CASES_FALLBACK } from "../content/site";
 import { CATEGORIAS_CASE } from "../content/categorias";
 import type { CaseItem, EmpresaParceira } from "../lib/supabase";
+import { useSeo } from "../lib/useSeo";
 
 export default function Cases() {
+  useSeo({
+    titulo: "Cases de automação e sistemas sob medida | nodus tecnologia",
+    descricao:
+      "Projetos reais de automação, sistemas e IA em indústria, distribuição, saúde, transporte e varejo. Resultados concretos, identidade dos clientes preservada.",
+    caminho: "/cases",
+  });
+
   const { dados: cases } = useTabela<CaseItem>("cases", CASES_FALLBACK as any, { chave: "cases:todos" });
   const { dados: empresas } = useTabela<EmpresaParceira>("empresas_parceiras");
   const [filtro, setFiltro] = useState<string>("Todos");
