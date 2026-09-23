@@ -5,11 +5,19 @@ import Reveal from "../components/Reveal";
 import { Section, PageHero } from "../components/ui";
 import { useTabela } from "../lib/useTabela";
 import type { BlogPost } from "../lib/supabase";
+import { useSeo } from "../lib/useSeo";
 
 const dataBR = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" }) : "";
 
 export default function Blog() {
+  useSeo({
+    titulo: "Blog — automação, IA aplicada e operação | nodus tecnologia",
+    descricao:
+      "Notas práticas sobre automação, inteligência artificial aplicada e operação, a partir do que acontece dentro dos projetos da nodus.",
+    caminho: "/blog",
+  });
+
   const { dados: posts, carregando } = useTabela<BlogPost>("blog_posts", [], {
     chave: "blog:publicados",
     ordem: "publicado_em",

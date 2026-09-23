@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { supabase } from "../lib/supabase";
 import { PageHero } from "../components/ui";
+import { useSeo } from "../lib/useSeo";
 
 const WHATSAPP = "https://wa.me/5554981482271";
 const EMAIL = "gustavo@somosnodus.com";
@@ -14,6 +15,13 @@ const SEDES = [
 ];
 
 export default function Contato() {
+  useSeo({
+    titulo: "Contato — nodus tecnologia | Caxias do Sul e Torres, RS",
+    descricao:
+      "Uma conversa de 30 minutos costuma ser suficiente para descobrir onde sua equipe está fazendo trabalho de máquina. Atendimento remoto, escritórios no RS.",
+    caminho: "/contato",
+  });
+
   const [form, setForm] = useState({ nome: "", email: "", telefone: "", empresa: "", mensagem: "" });
   const [aceite, setAceite] = useState(false);
   const [estado, setEstado] = useState<"idle" | "enviando" | "ok" | "erro">("idle");

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Painel interno: não faz sentido no índice de busca.
+Disallow: /admin
+Disallow: /admin/
+
+Sitemap: https://somosnodus.com/sitemap.xml

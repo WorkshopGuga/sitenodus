@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { supabase } from "../lib/supabase";
+import { useSeo } from "../lib/useSeo";
 import type { BlogPost as Post } from "../lib/supabase";
 
 /** Markdown mínimo: títulos, negrito, itálico, links, listas e parágrafos.
@@ -45,6 +46,16 @@ export default function BlogPost() {
       else setPost(data as Post);
     })();
   }, [slug]);
+
+  // SEO do post: usa o título e o resumo reais assim que carregam.
+  // Enquanto não carregou, mantém um título neutro em vez de deixar
+  // o título da página anterior no navegador.
+  useSeo({
+    titulo: post ? `${post.titulo} | nodus tecnologia` : "Blog | nodus tecnologia",
+    descricao: post?.resumo ?? "Notas práticas sobre automação, IA aplicada e operação.",
+    caminho: `/blog/${slug ?? ""}`,
+    imagem: post?.capa_url ?? undefined,
+  });
 
   return (
     <>

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { PageHero } from "../components/ui";
+import { useSeo } from "../lib/useSeo";
 
 function Bloco({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
@@ -15,6 +16,13 @@ function Bloco({ titulo, children }: { titulo: string; children: React.ReactNode
 }
 
 export default function Privacidade() {
+  useSeo({
+    titulo: "Política de Privacidade | nodus tecnologia",
+    descricao:
+      "Como a nodus tecnologia trata os dados enviados pelo site, de acordo com a LGPD. Quais dados coletamos, para que usamos e quais são os seus direitos.",
+    caminho: "/privacidade",
+  });
+
   return (
     <>
       <Navbar />

@@ -20,12 +20,20 @@ export type Frente = {
   /** Mostra a galeria de fotos (treinamentos/eventos/bastidores) nesta
    *  página. Hoje só a Capacitação usa isso. */
   galeria?: boolean;
+  /** Título e descrição que aparecem no resultado de busca do Google.
+   *  Título até ~60 caracteres, descrição até ~155 — além disso o
+   *  Google corta. */
+  seoTitulo: string;
+  seoDescricao: string;
   paraQuem: string[];
 };
 
 export const FRENTES: Frente[] = [
   {
     slug: "desenvolvimento",
+    seoTitulo: "Desenvolvimento de sistemas e automações sob medida | nodus",
+    seoDescricao:
+      "Sistemas web, agentes de IA no WhatsApp e automações construídos a partir da sua operação. Protótipo funcionando antes de você assumir compromisso.",
     nome: "Desenvolvimento",
     titulo: "Sistemas e automações sob medida",
     depoimentosServico: "desenvolvimento",
@@ -46,6 +54,9 @@ export const FRENTES: Frente[] = [
   },
   {
     slug: "diagnostico",
+    seoTitulo: "Diagnóstico de processos e mapa de automação | nodus tecnologia",
+    seoDescricao:
+      "Mapeamento setor a setor para descobrir onde automatizar primeiro. Roadmap priorizado por impacto financeiro e viabilidade técnica.",
     nome: "Diagnóstico",
     titulo: "O mapa antes da ferramenta",
     depoimentosServico: "diagnostico",
@@ -67,6 +78,9 @@ export const FRENTES: Frente[] = [
   },
   {
     slug: "capacitacao",
+    seoTitulo: "Capacitação em IA para empresas e profissionais | nodus",
+    seoDescricao:
+      "Treinamento in company, turmas abertas e mentoria em inteligência artificial aplicada. Prático, com as ferramentas na rotina real de cada setor.",
     nome: "Capacitação",
     titulo: "O time sabendo usar o que existe",
     depoimentosOrigem: ["treinamento", "mentoria"],
@@ -88,6 +102,9 @@ export const FRENTES: Frente[] = [
   },
   {
     slug: "marketing",
+    seoTitulo: "Site, tráfego pago e estrutura de captação | nodus tecnologia",
+    seoDescricao:
+      "Presença digital com o processo que sustenta o lead depois que ele chega. Site, tráfego e estrutura de CRM construídos juntos.",
     nome: "Marketing",
     titulo: "Presença digital com estrutura atrás",
     depoimentosServico: "marketing",
