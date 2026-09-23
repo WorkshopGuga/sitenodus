@@ -13,6 +13,10 @@ export type Frente = {
    *  (ex: ["treinamento","mentoria"] na Capacitação). Sem isso, a
    *  página não tem seção de depoimento. */
   depoimentosOrigem?: string[];
+  /** Mostra depoimentos de cliente (origem "cliente") marcados com este
+   *  serviço em tags_servico. Usado nas frentes comerciais — Capacitação
+   *  usa depoimentosOrigem em vez disso. */
+  depoimentosServico?: string;
   /** Mostra a galeria de fotos (treinamentos/eventos/bastidores) nesta
    *  página. Hoje só a Capacitação usa isso. */
   galeria?: boolean;
@@ -24,6 +28,7 @@ export const FRENTES: Frente[] = [
     slug: "desenvolvimento",
     nome: "Desenvolvimento",
     titulo: "Sistemas e automações sob medida",
+    depoimentosServico: "desenvolvimento",
     resumo:
       "Nada de prateleira. Construímos a partir da dor real da operação — e na maior parte dos projetos você vê um protótipo funcionando antes de assumir qualquer compromisso.",
     chamada: "Sistemas construídos a partir da sua operação, não de um template.",
@@ -43,6 +48,7 @@ export const FRENTES: Frente[] = [
     slug: "diagnostico",
     nome: "Diagnóstico",
     titulo: "O mapa antes da ferramenta",
+    depoimentosServico: "diagnostico",
     resumo:
       "Quando os processos ainda não estão claros, tecnologia só acelera a bagunça. Entramos setor a setor, mapeamos onde dói e entregamos um roadmap priorizado por impacto e viabilidade.",
     chamada: "Automação sem diagnóstico é desperdício.",
@@ -84,6 +90,7 @@ export const FRENTES: Frente[] = [
     slug: "marketing",
     nome: "Marketing",
     titulo: "Presença digital com estrutura atrás",
+    depoimentosServico: "marketing",
     resumo:
       "Não adianta gerar demanda se o processo que recebe essa demanda não existe. Site e tráfego entram junto com a estrutura que sustenta o lead depois que ele chega.",
     chamada: "Presença digital só funciona quando tem estrutura atrás.",

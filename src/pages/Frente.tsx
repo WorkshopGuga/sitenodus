@@ -17,9 +17,14 @@ export default function Frente({ slug }: { slug: string }) {
   // Só busca depoimentos/galeria quando a frente pede — senão usa um
   // filtro que nunca casa, pra manter o hook incondicional (regra do React)
   // sem trazer conteúdo de frente que não configurou isso.
+  // Capacitação filtra por origem (treinamento/mentoria); as três frentes
+  // comerciais filtram por tags_servico dentro de depoimentos de cliente.
   const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", [], {
-    filtro: (q) =>
-      f.depoimentosOrigem ? q.in("origem", f.depoimentosOrigem) : q.eq("id", "00000000-0000-0000-0000-000000000000"),
+    filtro: (q) => {
+      if (f.depoimentosOrigem) return q.in("origem", f.depoimentosOrigem);
+      if (f.depoimentosServico) return q.eq("origem", "cliente").contains("tags_servico", [f.depoimentosServico]);
+      return q.eq("id", "00000000-0000-0000-0000-000000000000");
+    },
   });
 
   const { dados: galeria } = useTabela<GaleriaImagem>("galeria_imagens", [], {
@@ -84,8 +89,8 @@ export default function Frente({ slug }: { slug: string }) {
         </Section>
       )}
 
-      {/* depoimentos desta frente (só quando há origem definida e resultado) */}
-      {f.depoimentosOrigem && depoimentos.length > 0 && (
+      {/* depoimentos desta frente (origem, na Capacitação; serviço, nas comerciais) */}
+      {(f.depoimentosOrigem || f.depoimentosServico) && depoimentos.length > 0 && (
         <Section tone="dark">
           <Reveal>
             <Eyebrow>O que dizem quem passou por isso</Eyebrow>
