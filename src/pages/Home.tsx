@@ -60,15 +60,18 @@ export default function Home() {
           <div className="max-w-content mx-auto w-full">
             <div className="max-w-[620px] pb-[8vh]">
               <h1 className="m-0 text-white font-semibold text-[clamp(38px,5.6vw,72px)] leading-[1.04] tracking-[-.028em]">
-                A tecnologia faz o repetitivo.<br />Sua equipe faz o que importa.
+                A tecnologia faz o repetitivo.
+                <br />
+                Sua equipe faz o que importa.
               </h1>
               <p className="mt-7 text-white/60 text-[clamp(15px,1.25vw,17.5px)] leading-[1.62] max-w-[470px] font-light">
-                Entramos na operação, encontramos onde gente boa está fazendo
-                trabalho de máquina, e resolvemos.
+                Entramos na operação, encontramos onde gente boa está fazendo trabalho de máquina, e resolvemos.
               </p>
               <div className="flex gap-3.5 mt-10 flex-wrap">
                 <CTAButton to="/contato">Agendar uma conversa</CTAButton>
-                <CTAButton to="/cases" variant="ghost">Ver o que construímos</CTAButton>
+                <CTAButton to="/cases" variant="ghost">
+                  Ver o que construímos
+                </CTAButton>
               </div>
             </div>
           </div>
@@ -86,9 +89,7 @@ export default function Home() {
         <section className="bg-white px-5 md:px-10 py-16 md:py-24">
           <div className="max-w-content mx-auto">
             <Reveal>
-              <p className="text-ink/55 text-[14.5px] m-0 text-center">
-                Empresas que confiam na nodus
-              </p>
+              <p className="text-ink/55 text-[14.5px] m-0 text-center">Empresas que confiam na nodus</p>
             </Reveal>
             <Reveal delay={120}>
               <div className="mt-10">
@@ -104,8 +105,7 @@ export default function Home() {
         <Reveal>
           <Eyebrow>Por que existimos</Eyebrow>
           <H2 className="text-white max-w-[780px]">
-            Existe um ponto em toda empresa onde pessoas boas estão fazendo
-            trabalho de máquina.
+            Existe um ponto em toda empresa onde pessoas boas estão fazendo trabalho de máquina.
           </H2>
         </Reveal>
         <Reveal delay={140}>
@@ -154,9 +154,7 @@ export default function Home() {
               <h3 className="m-0 text-[clamp(22px,2.6vw,32px)] font-semibold tracking-[-.022em] text-ink leading-[1.18]">
                 {F.titulo}
               </h3>
-              <p className="mt-4 text-ink/60 text-[15.5px] leading-[1.68] font-light max-w-[460px]">
-                {F.resumo}
-              </p>
+              <p className="mt-4 text-ink/60 text-[15.5px] leading-[1.68] font-light max-w-[460px]">{F.resumo}</p>
               <Link
                 to={`/${F.slug}`}
                 className="inline-block mt-7 text-accent-deep text-[15px] font-medium no-underline border-b border-accent-deep/35 pb-[3px]"
@@ -166,7 +164,10 @@ export default function Home() {
             </div>
             <div className="flex flex-col justify-center">
               {F.itens.map((it) => (
-                <div key={it.t} className="py-3.5 border-b border-ink/[.08] text-ink text-[15px] flex items-center gap-3">
+                <div
+                  key={it.t}
+                  className="py-3.5 border-b border-ink/[.08] text-ink text-[15px] flex items-center gap-3"
+                >
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-deep shrink-0" />
                   {it.t}
                 </div>
@@ -182,17 +183,18 @@ export default function Home() {
         <div className="max-w-content mx-auto">
           <Reveal>
             <Eyebrow>O que já construímos</Eyebrow>
-            <H2 className="text-white max-w-[720px]">
-              Projetos reais. Nomes preservados por contrato.
-            </H2>
+            <H2 className="text-white max-w-[720px]">Projetos reais. Nomes preservados por contrato.</H2>
           </Reveal>
           <div className="mt-14 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
-            {cases.slice(0, 4).map((c) => (
+            {cases.slice(0, 6).map((c) => (
               <CaseCard key={c.id} caso={c} tone="dark" />
             ))}
           </div>
           <Reveal delay={200}>
-            <Link to="/cases" className="inline-block mt-10 text-accent text-[15px] font-medium no-underline border-b border-accent/40 pb-[3px]">
+            <Link
+              to="/cases"
+              className="inline-block mt-10 text-accent text-[15px] font-medium no-underline border-b border-accent/40 pb-[3px]"
+            >
               Ver todos os cases
             </Link>
           </Reveal>
@@ -233,8 +235,8 @@ export default function Home() {
               <Eyebrow light>Quem está por trás</Eyebrow>
               <H2 className="text-ink !text-[clamp(26px,3.4vw,40px)]">Gustavo Bettiol</H2>
               <Lead className="text-ink/60">
-                Fundador da nodus tecnologia. Capacita times de empresas da Serra Gaúcha
-                e lidera projetos de automação em indústrias e distribuidoras.
+                Fundador da nodus tecnologia. Capacita times de empresas da Serra Gaúcha e lidera projetos de automação
+                em indústrias e distribuidoras.
               </Lead>
               <a
                 href="https://gustavobettiol.com"
