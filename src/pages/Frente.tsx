@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import StepTimeline from "../components/StepTimeline";
-import DepoimentosGrid from "../components/DepoimentosGrid";
+import DepoimentosCarrossel from "../components/DepoimentosCarrossel";
 import GaleriaGrid from "../components/GaleriaGrid";
 import { Section, Eyebrow, H2, CTAButton, PageHero } from "../components/ui";
 import { FRENTES, getFrente } from "../content/frentes";
@@ -91,7 +91,7 @@ export default function Frente({ slug }: { slug: string }) {
             <Eyebrow>O que dizem quem passou por isso</Eyebrow>
           </Reveal>
           <div className="mt-11">
-            <DepoimentosGrid depoimentos={depoimentos} tone="dark" />
+            <DepoimentosCarrossel depoimentos={depoimentos} tone="dark" />
           </div>
         </Section>
       )}

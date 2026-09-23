@@ -9,7 +9,7 @@ import { Section, Eyebrow, H2, Lead, CTAButton } from "../components/ui";
 import StepTimeline from "../components/StepTimeline";
 import CaseCard from "../components/CaseCard";
 import LogoMarquee from "../components/LogoMarquee";
-import DepoimentosGrid from "../components/DepoimentosGrid";
+import DepoimentosCarrossel from "../components/DepoimentosCarrossel";
 import { FRENTES } from "../content/frentes";
 import { PASSOS, SINTOMAS, CASES_FALLBACK, DEPOIMENTOS_FALLBACK } from "../content/site";
 import { useTabela } from "../lib/useTabela";
@@ -206,7 +206,7 @@ export default function Home() {
           <Eyebrow>O que dizem quem passou por isso</Eyebrow>
         </Reveal>
         <div className="mt-11">
-          <DepoimentosGrid depoimentos={depoimentos} tone="dark" />
+          <DepoimentosCarrossel depoimentos={depoimentos} tone="dark" />
         </div>
       </Section>
 

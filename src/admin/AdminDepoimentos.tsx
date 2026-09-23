@@ -3,7 +3,13 @@ import { useCrud } from "./useCrud";
 import { Cabecalho, Cartao, Botao, Campo, input, UploadImagem, Vazio } from "./componentes";
 import type { Depoimento } from "../lib/supabase";
 
-const vazio = { autor: "", cargo: "", texto: "", foto_url: "", origem: "cliente", ordem: 0, ativo: true };
+const vazio = { autor: "", cargo: "", texto: "", foto_url: "", origem: "cliente", tags_servico: [] as string[], ordem: 0, ativo: true };
+
+const SERVICOS = [
+  { valor: "desenvolvimento", label: "Desenvolvimento" },
+  { valor: "diagnostico", label: "Diagnóstico" },
+  { valor: "marketing", label: "Marketing" },
+];
 
 /** Formulário de autor/cargo/texto/origem/foto — reaproveitado tanto
  *  pra criar quanto pra editar, só muda o que acontece ao salvar. */
@@ -12,6 +18,12 @@ function FormularioDepoimento({
 }: {
   valor: any; onMudar: (v: any) => void; onSalvar: () => void; onCancelar?: () => void; salvando?: boolean;
 }) {
+  const alternarServico = (v: string) => {
+    const atuais: string[] = valor.tags_servico ?? [];
+    const novo = atuais.includes(v) ? atuais.filter((x) => x !== v) : [...atuais, v];
+    onMudar({ ...valor, tags_servico: novo });
+  };
+
   return (
     <Cartao>
       <div className="grid gap-4 md:grid-cols-2">
@@ -39,6 +51,22 @@ function FormularioDepoimento({
             <option value="mentoria" className="bg-ink">Mentoria</option>
           </select>
         </Campo>
+        {valor.origem === "cliente" && (
+          <Campo label="Serviços deste cliente (pode marcar mais de um)">
+            <div className="flex gap-4 flex-wrap pt-2">
+              {SERVICOS.map((s) => (
+                <label key={s.valor} className="flex items-center gap-2 text-white/70 text-[13.5px]">
+                  <input
+                    type="checkbox"
+                    checked={(valor.tags_servico ?? []).includes(s.valor)}
+                    onChange={() => alternarServico(s.valor)}
+                  />
+                  {s.label}
+                </label>
+              ))}
+            </div>
+          </Campo>
+        )}
         <Campo label="Foto de perfil">
           <UploadImagem bucket="depoimentos" valor={valor.foto_url} formato="circulo"
             onChange={(url) => onMudar({ ...valor, foto_url: url })}
@@ -150,6 +178,15 @@ export default function AdminDepoimentos() {
                 <div className="flex-1 min-w-[200px]">
                   <p className="m-0 text-white text-[15.5px] font-medium">{d.autor}</p>
                   {d.cargo && <p className="mt-0.5 mb-0 text-white/45 text-[13px]">{d.cargo}</p>}
+                  {d.tags_servico?.length > 0 && (
+                    <div className="flex gap-1.5 flex-wrap mt-1.5">
+                      {d.tags_servico.map((t) => (
+                        <span key={t} className="px-2 py-0.5 rounded-full bg-white/[.07] text-white/50 text-[11px]">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <p className="mt-2.5 mb-0 text-white/65 text-[14px] leading-[1.6] font-light">{d.texto}</p>
                 </div>
                 <div className="flex items-center gap-3">
