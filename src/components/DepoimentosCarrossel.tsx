@@ -15,7 +15,6 @@ export default function DepoimentosCarrossel({
   const textCls = dark ? "text-white" : "text-ink";
   const cargoCls = dark ? "text-white/45" : "text-ink/45";
 
-  const dobrado = [...depoimentos, ...depoimentos];
   const duracao = Math.max(depoimentos.length * 7, 22);
     // Divide em duas linhas só quando há volume — com poucos depoimentos,
   // duas fileiras ficam desequilibradas (ex: 2 em cima, 1 embaixo).
@@ -70,5 +69,6 @@ export default function DepoimentosCarrossel({
           </div>
         );
       })}
+    </div>
   );
 }
