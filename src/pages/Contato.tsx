@@ -10,8 +10,8 @@ const WHATSAPP = "https://wa.me/5554981482271";
 const EMAIL = "gustavo@somosnodus.com";
 
 const SEDES = [
-  { nome: "Sede 1", endereco: "Rua Roque Callage, 87", cidade: "Caxias do Sul, RS" },
-  { nome: "Sede 2", endereco: "Rua Bento Gonçalves, 165", cidade: "Torres, RS" },
+  { nome: "Sede 1", endereco: "Rua Roque Callage, 87", cidade: "Caxias do Sul, RS, Brasil" },
+  { nome: "Sede 2", endereco: "Rua Bento Gonçalves, 165", cidade: "Torres, RS, Brasil" },
 ];
 
 export default function Contato() {
@@ -72,8 +72,12 @@ export default function Contato() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-x-10 gap-y-3">
-            <a href={WHATSAPP} target="_blank" rel="noreferrer"
-               className="text-white/70 hover:text-white text-[15px] transition-colors">
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/70 hover:text-white text-[15px] transition-colors"
+            >
               (54) 98148-2271
             </a>
             <a href={`mailto:${EMAIL}`} className="text-white/70 hover:text-white text-[15px] transition-colors">
@@ -91,8 +95,12 @@ export default function Contato() {
               <p className="text-ink/60 text-[15.5px] mt-3 font-light">
                 Retornamos em até um dia útil. Se preferir adiantar, chame no WhatsApp.
               </p>
-              <a href={WHATSAPP} target="_blank" rel="noreferrer"
-                 className="inline-block mt-7 px-7 py-3.5 rounded-full bg-gradient-to-br from-accent to-accent-deep text-white text-[15px] font-medium no-underline">
+              <a
+                href={WHATSAPP}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block mt-7 px-7 py-3.5 rounded-full bg-gradient-to-br from-accent to-accent-deep text-white text-[15px] font-medium no-underline"
+              >
                 Falar no WhatsApp
               </a>
             </div>
