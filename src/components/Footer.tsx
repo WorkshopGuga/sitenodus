@@ -8,8 +8,7 @@ export default function Footer() {
         <div>
           <img src={logo} alt="nodus tecnologia" className="h-8 w-auto opacity-90" />
           <p className="mt-5 text-white/45 text-[14px] leading-relaxed max-w-[300px] font-light">
-            Entramos na operação, encontramos onde gente boa está fazendo trabalho
-            de máquina, e resolvemos.
+            Entramos na operação, encontramos onde gente boa está fazendo trabalho de máquina, e resolvemos.
           </p>
         </div>
 
@@ -34,13 +33,33 @@ export default function Footer() {
         <div>
           <p className="text-white text-[14px] font-medium">Empresa</p>
           <ul className="mt-4 space-y-2.5">
-            <li><Link to="/cases" className="text-white/50 hover:text-white text-[14px] transition-colors">Cases</Link></li>
-            <li><Link to="/blog" className="text-white/50 hover:text-white text-[14px] transition-colors">Blog</Link></li>
-            <li><Link to="/contato" className="text-white/50 hover:text-white text-[14px] transition-colors">Contato</Link></li>
-            <li><Link to="/privacidade" className="text-white/50 hover:text-white text-[14px] transition-colors">Privacidade</Link></li>
             <li>
-              <a href="https://gustavobettiol.com" target="_blank" rel="noreferrer"
-                 className="text-white/50 hover:text-white text-[14px] transition-colors">
+              <Link to="/cases" className="text-white/50 hover:text-white text-[14px] transition-colors">
+                Cases
+              </Link>
+            </li>
+            <li>
+              <Link to="/blog" className="text-white/50 hover:text-white text-[14px] transition-colors">
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link to="/contato" className="text-white/50 hover:text-white text-[14px] transition-colors">
+                Contato
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacidade" className="text-white/50 hover:text-white text-[14px] transition-colors">
+                Privacidade
+              </Link>
+            </li>
+            <li>
+              <a
+                href="https://gustavobettiol.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-white/50 hover:text-white text-[14px] transition-colors"
+              >
                 Gustavo Bettiol
               </a>
             </li>
@@ -49,15 +68,21 @@ export default function Footer() {
       </div>
 
       <div className="max-w-content mx-auto mt-12 pt-7 border-t border-white/[.07] flex flex-wrap gap-4 justify-between items-center">
-        <p className="text-white/35 text-[13px] m-0">
-          Caxias do Sul, RS · somosnodus.com
-        </p>
-        <a href="https://instagram.com/nodustecnologiabr" target="_blank" rel="noreferrer"
-           className="text-white/35 hover:text-white text-[13px] transition-colors">
+        <p className="text-white/35 text-[13px] m-0">Caxias do Sul e Torres, RS, Brasil · somosnodus.com</p>
+        <a
+          href="https://instagram.com/nodustecnologiabr"
+          target="_blank"
+          rel="noreferrer"
+          className="text-white/35 hover:text-white text-[13px] transition-colors"
+        >
           @nodustecnologiabr
         </a>
-        <a href="https://www.linkedin.com/company/nodustecnologia/" target="_blank" rel="noreferrer"
-           className="text-white/35 hover:text-white text-[13px] transition-colors">
+        <a
+          href="https://www.linkedin.com/company/nodustecnologia/"
+          target="_blank"
+          rel="noreferrer"
+          className="text-white/35 hover:text-white text-[13px] transition-colors"
+        >
           LinkedIn
         </a>
       </div>
