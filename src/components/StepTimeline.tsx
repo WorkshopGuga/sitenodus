@@ -9,9 +9,7 @@ type Passo = { t: string; d: string };
  * paralelas isso mentiria uma ordem que não existe, então esse
  * componente é usado só onde a ordem é real.
  */
-export default function StepTimeline({
-  passos, tone = "light",
-}: { passos: Passo[]; tone?: "light" | "dark" }) {
+export default function StepTimeline({ passos, tone = "light" }: { passos: Passo[]; tone?: "light" | "dark" }) {
   const [aceso, setAceso] = useState<boolean[]>(() => passos.map(() => false));
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -29,7 +27,7 @@ export default function StepTimeline({
             });
           }
         },
-        { threshold: 0.35 }
+        { threshold: 0.35 },
       );
       io.observe(el);
       return io;
@@ -46,10 +44,7 @@ export default function StepTimeline({
   return (
     <div className="relative">
       {/* trilho de fundo */}
-      <div
-        className={`absolute left-[28px] md:left-[34px] top-3 bottom-3 w-px ${lineDim}`}
-        aria-hidden
-      />
+      <div className={`absolute left-[7px] top-3 bottom-3 w-px ${lineDim}`} aria-hidden />
       {passos.map((p, i) => (
         <div
           key={p.t}
@@ -58,7 +53,7 @@ export default function StepTimeline({
         >
           {/* segmento da linha que "acende" até este passo */}
           <div
-            className={`absolute left-[28px] md:left-[34px] top-0 w-px ${tone === "dark" ? "bg-accent" : "bg-accent-deep"}`}
+            className={`absolute left-[7px] top-0 w-px ${tone === "dark" ? "bg-accent" : "bg-accent-deep"}`}
             style={{
               height: aceso[i] ? "calc(100% - 0px)" : "0%",
               transition: "height 700ms cubic-bezier(.2,.7,.2,1) 80ms",
@@ -82,12 +77,8 @@ export default function StepTimeline({
               transition: "opacity 600ms ease 120ms, transform 600ms ease 120ms",
             }}
           >
-            <h3 className={`m-0 text-[clamp(18px,2.1vw,24px)] font-semibold tracking-[-.016em] ${titleCls}`}>
-              {p.t}
-            </h3>
-            <p className={`mt-2.5 mb-0 text-[15px] leading-[1.65] font-light max-w-[600px] ${textCls}`}>
-              {p.d}
-            </p>
+            <h3 className={`m-0 text-[clamp(18px,2.1vw,24px)] font-semibold tracking-[-.016em] ${titleCls}`}>{p.t}</h3>
+            <p className={`mt-2.5 mb-0 text-[15px] leading-[1.65] font-light max-w-[600px] ${textCls}`}>{p.d}</p>
           </div>
         </div>
       ))}
