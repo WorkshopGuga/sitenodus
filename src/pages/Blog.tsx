@@ -11,6 +11,7 @@ const dataBR = (iso: string | null) =>
 
 export default function Blog() {
   const { dados: posts, carregando } = useTabela<BlogPost>("blog_posts", [], {
+    chave: "blog:publicados",
     ordem: "publicado_em",
     filtro: (q) => q.eq("status", "publicado"),
   });

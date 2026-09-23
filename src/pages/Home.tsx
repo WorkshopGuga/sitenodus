@@ -28,9 +28,11 @@ export default function Home() {
 
   const { dados: empresas } = useTabela<EmpresaParceira>("empresas_parceiras");
   const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", DEPOIMENTOS_FALLBACK as any, {
+    chave: "home:cliente",
     filtro: (q) => q.eq("origem", "cliente"),
   });
   const { dados: cases } = useTabela<CaseItem>("cases", CASES_FALLBACK as any, {
+    chave: "home:destaque",
     filtro: (q) => q.eq("destaque", true),
   });
 

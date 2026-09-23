@@ -20,6 +20,7 @@ export default function Frente({ slug }: { slug: string }) {
   // Capacitação filtra por origem (treinamento/mentoria); as três frentes
   // comerciais filtram por tags_servico dentro de depoimentos de cliente.
   const { dados: depoimentos } = useTabela<Depoimento>("depoimentos", [], {
+    chave: `frente:${slug}`,
     filtro: (q) => {
       if (f.depoimentosOrigem) return q.in("origem", f.depoimentosOrigem);
       if (f.depoimentosServico) return q.eq("origem", "cliente").contains("tags_servico", [f.depoimentosServico]);
@@ -28,6 +29,7 @@ export default function Frente({ slug }: { slug: string }) {
   });
 
   const { dados: galeria } = useTabela<GaleriaImagem>("galeria_imagens", [], {
+    chave: `galeria:${slug}`,
     filtro: (q) => (f.galeria ? q : q.eq("id", "00000000-0000-0000-0000-000000000000")),
   });
 
