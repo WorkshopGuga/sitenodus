@@ -5,6 +5,7 @@ import Frente from "./pages/Frente";
 import Cases from "./pages/Cases";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Brinde from "./pages/Brinde";
 import Contato from "./pages/Contato";
 import Privacidade from "./pages/Privacidade";
 import NotFound from "./pages/NotFound";
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/privacidade" element={<Privacidade />} />
+        <Route path="/brinde" element={<Brinde />} />
 
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
