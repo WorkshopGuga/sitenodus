@@ -5,6 +5,7 @@ import Frente from "./pages/Frente";
 import Cases from "./pages/Cases";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Brinde from "./pages/Brinde";
 import Contato from "./pages/Contato";
 import Privacidade from "./pages/Privacidade";
 import NotFound from "./pages/NotFound";
