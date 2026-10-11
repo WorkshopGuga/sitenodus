@@ -5,13 +5,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#0D0D1A",
-        surface: "#1A1A2E",
-        accent: "#5B9CF6",
-        "accent-deep": "#1D4ED8",
-        paper: "#FAF8F9",
+        ink: "#080b12",
+        surface: "#0b101b",
+        accent: "#5a83ff",
+        "accent-deep": "#3a5fd6",
+        paper: "#eceeea",
       },
-      fontFamily: { sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"] },
+      fontFamily: { sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"] },
       maxWidth: { content: "1180px" },
     },
   },

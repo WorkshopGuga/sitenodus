@@ -51,7 +51,7 @@ export default function Cases() {
                   role="tab"
                   aria-selected={filtro === c}
                   onClick={() => setFiltro(c)}
-                  className={`px-4 py-2 rounded-full text-[13.5px] font-medium transition-all ${
+                  className={`px-4 py-3 rounded-[5px] text-[13px] font-bold transition-all ${
                     filtro === c ? "bg-ink text-white" : "bg-ink/[.06] text-ink/60 hover:bg-ink/10"
                   }`}
                 >
@@ -92,9 +92,9 @@ export default function Cases() {
         </section>
       )}
 
-      <section className="bg-ink bg-[radial-gradient(800px_420px_at_50%_0%,rgba(29,78,216,.34),transparent_70%)] px-5 md:px-10 py-24 md:py-32 text-center">
+      <section className="bg-ink bg-[radial-gradient(800px_420px_at_50%_0%,rgba(39,85,196,.34),transparent_70%)] px-5 md:px-10 py-24 md:py-32 text-center">
         <Reveal>
-          <h2 className="mx-auto max-w-[700px] text-white font-semibold text-[clamp(26px,4vw,46px)] leading-[1.12] tracking-[-.028em] m-0">
+          <h2 className="mx-auto max-w-[700px] text-white font-bold text-[clamp(33px,5vw,60px)] leading-[1.06] tracking-[-.055em] m-0">
             Onde sua equipe está fazendo trabalho de máquina?
           </h2>
           <div className="mt-8"><CTAButton to="/contato">Agendar uma conversa</CTAButton></div>

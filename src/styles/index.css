@@ -3,13 +3,16 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
   body {
     @apply bg-ink text-white font-sans antialiased;
     margin: 0;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
-  ::selection { background: #5B9CF6; color: #0D0D1A; }
-  :focus-visible { outline: 2px solid #5B9CF6; outline-offset: 3px; }
+  h1, h2, h3 { text-wrap: balance; }
+  ::selection { background: #5a83ff; color: #fff; }
+  :focus-visible { outline: 2px solid #8faaff; outline-offset: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

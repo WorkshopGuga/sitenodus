@@ -32,6 +32,7 @@ export type Depoimento = {
 export type CaseItem = {
   id: string; setor: string; categoria: string | null; desafio: string; solucao: string;
   resultado: string; destaque: boolean; ordem: number; ativo: boolean;
+  video_url?: string | null; video_formato?: "quadrado" | "vertical" | "horizontal" | null;
 };
 
 export type GaleriaImagem = {

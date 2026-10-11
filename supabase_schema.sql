@@ -204,3 +204,35 @@ create policy "update autenticado imagens"
 create policy "delete autenticado imagens"
   on storage.objects for delete to authenticated
   using (bucket_id in ('logos','galeria','blog'));
+
+
+-- =====================================================
+-- CASES — vídeo opcional (1 por case) + formato
+-- =====================================================
+alter table public.cases
+  add column if not exists video_url     text,
+  add column if not exists video_formato text;
+
+alter table public.cases drop constraint if exists cases_video_formato_chk;
+alter table public.cases add constraint cases_video_formato_chk
+  check (video_formato is null or video_formato in ('quadrado', 'vertical', 'horizontal'));
+
+alter table public.cases drop constraint if exists cases_video_par_chk;
+alter table public.cases add constraint cases_video_par_chk
+  check ((video_url is null) = (video_formato is null));
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('videos', 'videos', true, 52428800, array['video/mp4', 'video/webm'])
+on conflict (id) do update
+  set public = true,
+      file_size_limit = excluded.file_size_limit,
+      allowed_mime_types = excluded.allowed_mime_types;
+
+create policy "leitura publica videos"
+  on storage.objects for select to anon, authenticated using (bucket_id = 'videos');
+create policy "upload autenticado videos"
+  on storage.objects for insert to authenticated with check (bucket_id = 'videos');
+create policy "update autenticado videos"
+  on storage.objects for update to authenticated using (bucket_id = 'videos');
+create policy "delete autenticado videos"
+  on storage.objects for delete to authenticated using (bucket_id = 'videos');

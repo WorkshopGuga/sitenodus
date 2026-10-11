@@ -7,8 +7,8 @@ import { useSeo } from "../lib/useSeo";
 function Bloco({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
     <div className="py-8 border-t border-ink/10 first:border-t-0 first:pt-0">
-      <h2 className="m-0 text-[19px] font-semibold text-ink tracking-[-.015em]">{titulo}</h2>
-      <div className="mt-3 text-ink/65 text-[15px] leading-[1.72] font-light [&_p]:m-0 [&_p+p]:mt-3 [&_ul]:mt-3 [&_ul]:mb-0 [&_ul]:pl-5 [&_li]:mb-1.5">
+      <h2 className="m-0 text-[19px] font-bold text-ink tracking-[-.03em]">{titulo}</h2>
+      <div className="mt-3 text-ink/65 text-[15px] leading-[1.72] font-normal [&_p]:m-0 [&_p+p]:mt-3 [&_ul]:mt-3 [&_ul]:mb-0 [&_ul]:pl-5 [&_li]:mb-1.5">
         {children}
       </div>
     </div>
