@@ -62,7 +62,7 @@ export default function StepTimeline({ passos, tone = "light" }: { passos: Passo
           />
           <div className="relative flex justify-center">
             <span
-              className={`text-[clamp(26px,3.4vw,38px)] font-semibold leading-none tracking-[-.03em] transition-colors duration-500 ${
+              className={`text-[clamp(26px,3.4vw,38px)] font-bold leading-none tracking-[-.05em] transition-colors duration-500 ${
                 aceso[i] ? numLit : numDim
               }`}
               style={{ transitionDelay: aceso[i] ? "120ms" : "0ms" }}
@@ -77,8 +77,8 @@ export default function StepTimeline({ passos, tone = "light" }: { passos: Passo
               transition: "opacity 600ms ease 120ms, transform 600ms ease 120ms",
             }}
           >
-            <h3 className={`m-0 text-[clamp(18px,2.1vw,24px)] font-semibold tracking-[-.016em] ${titleCls}`}>{p.t}</h3>
-            <p className={`mt-2.5 mb-0 text-[15px] leading-[1.65] font-light max-w-[600px] ${textCls}`}>{p.d}</p>
+            <h3 className={`m-0 text-[clamp(18px,2.1vw,24px)] font-bold tracking-[-.035em] ${titleCls}`}>{p.t}</h3>
+            <p className={`mt-2.5 mb-0 text-[15px] leading-[1.65] font-normal max-w-[600px] ${textCls}`}>{p.d}</p>
           </div>
         </div>
       ))}

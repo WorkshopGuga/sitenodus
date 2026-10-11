@@ -97,6 +97,83 @@ export function UploadImagem({
   );
 }
 
+export type FormatoVideo = "quadrado" | "vertical" | "horizontal";
+
+const LIMITE_VIDEO_MB = 50;
+
+/** Lê as dimensões do vídeo no navegador e sugere o formato (o admin pode trocar). */
+function detectarFormato(arquivo: File): Promise<FormatoVideo | null> {
+  return new Promise((resolve) => {
+    const v = document.createElement("video");
+    const url = URL.createObjectURL(arquivo);
+    v.preload = "metadata";
+    v.muted = true;
+    v.onloadedmetadata = () => {
+      const r = v.videoWidth / v.videoHeight;
+      URL.revokeObjectURL(url);
+      resolve(!isFinite(r) ? null : r > 1.2 ? "horizontal" : r < 0.8 ? "vertical" : "quadrado");
+    };
+    v.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    v.src = url;
+  });
+}
+
+/** Upload de vídeo (mp4/webm) para um bucket público. Devolve a URL e o formato detectado. */
+export function UploadVideo({
+  bucket, valor, onChange,
+}: {
+  bucket: string; valor: string | null;
+  onChange: (url: string | null, formato: FormatoVideo | null) => void;
+}) {
+  const [enviando, setEnviando] = useState(false);
+  const [erro, setErro] = useState("");
+
+  const enviar = async (arquivo: File) => {
+    setErro("");
+    if (!["video/mp4", "video/webm"].includes(arquivo.type)) { setErro("Use um arquivo .mp4 ou .webm."); return; }
+    if (arquivo.size > LIMITE_VIDEO_MB * 1024 * 1024) {
+      setErro(`Máximo de ${LIMITE_VIDEO_MB} MB (este tem ${(arquivo.size / 1048576).toFixed(0)} MB). Comprima o vídeo antes de enviar.`);
+      return;
+    }
+    setEnviando(true);
+    try {
+      const formato = await detectarFormato(arquivo);
+      const ext = arquivo.type === "video/webm" ? "webm" : "mp4";
+      const nome = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error } = await supabase.storage.from(bucket).upload(nome, arquivo, { upsert: false, contentType: arquivo.type });
+      if (error) throw error;
+      const { data } = supabase.storage.from(bucket).getPublicUrl(nome);
+      onChange(data.publicUrl, formato ?? "quadrado");
+    } catch (e: any) {
+      setErro(e?.message ?? "Erro ao enviar vídeo");
+    } finally {
+      setEnviando(false);
+    }
+  };
+
+  return (
+    <div>
+      {valor && (
+        <video src={valor} controls playsInline preload="metadata"
+          className="mb-3 max-h-[220px] max-w-full rounded-lg border border-white/12 bg-black" />
+      )}
+      <div className="flex items-center gap-3 flex-wrap">
+        <label className="inline-block px-3.5 py-2 rounded-lg bg-white/[.06] border border-white/12 text-white/75 text-[13.5px] cursor-pointer hover:bg-white/10 transition-colors">
+          {enviando ? "Enviando…" : valor ? "Trocar vídeo" : "Enviar vídeo"}
+          <input type="file" accept="video/mp4,video/webm" className="hidden" disabled={enviando}
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) enviar(f); e.target.value = ""; }} />
+        </label>
+        {valor && !enviando && (
+          <button type="button" onClick={() => onChange(null, null)}
+            className="text-red-300 text-[13px] underline">Remover vídeo</button>
+        )}
+      </div>
+      <p className="mt-2 mb-0 text-white/35 text-[12px]">mp4 ou webm, até {LIMITE_VIDEO_MB} MB. O formato é detectado sozinho.</p>
+      {erro && <p className="text-red-400 text-[12.5px] mt-1.5 mb-0">{erro}</p>}
+    </div>
+  );
+}
+
 export function Vazio({ texto }: { texto: string }) {
   return (
     <div className="border border-dashed border-white/12 rounded-xl py-14 text-center">

@@ -46,9 +46,9 @@ export default function DepoimentosCarrossel({
             {dobrado.map((d, i) => (
               <figure
                 key={`${d.id}-${i}`}
-                className={`m-0 w-[300px] sm:w-[340px] shrink-0 p-7 rounded-[20px] border flex flex-col justify-between ${cardBg}`}
+                className={`m-0 w-[300px] sm:w-[340px] shrink-0 p-7 rounded-[10px] border flex flex-col justify-between ${cardBg}`}
               >
-                <blockquote className={`m-0 text-[15.5px] leading-[1.6] font-light ${textCls}`}>
+                <blockquote className={`m-0 text-[15.5px] leading-[1.6] font-normal ${textCls}`}>
                   {d.texto}
                 </blockquote>
                 <figcaption className="mt-7 flex items-center gap-3.5">

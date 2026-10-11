@@ -6,6 +6,8 @@ export type CaseDado = {
   desafio: string;
   solucao: string;
   resultado: string;
+  video_url?: string | null;
+  video_formato?: string | null;
 };
 
 /**
@@ -25,6 +27,14 @@ export default function CaseCard({
   const ref = useRef<HTMLDivElement>(null);
   const [porScroll, setPorScroll] = useState(false);
   const [aberto, setAberto] = useState(false);
+  const [jaAbriu, setJaAbriu] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // o vídeo só é carregado na primeira abertura e pausa quando o card fecha
+  useEffect(() => {
+    if (aberto) setJaAbriu(true);
+    else videoRef.current?.pause();
+  }, [aberto]);
 
   useEffect(() => {
     if (expandable) return;
@@ -38,6 +48,10 @@ export default function CaseCard({
 
   const on = expandable ? aberto : porScroll;
 
+  const temVideo = !!caso.video_url && !!caso.video_formato;
+  const ratio = caso.video_formato === "vertical" ? "9 / 16" : caso.video_formato === "horizontal" ? "16 / 9" : "1 / 1";
+  const larguraMax = caso.video_formato === "vertical" ? 260 : caso.video_formato === "quadrado" ? 420 : 640;
+
   const dark = tone === "dark";
   const cardBg = dark ? "bg-white/[.035] border-white/[.08]" : "bg-white border-ink/[.08]";
   const setorCls = dark ? "text-accent" : "text-accent-deep";
@@ -45,11 +59,11 @@ export default function CaseCard({
   const bodyCls = dark ? "text-white/55" : "text-ink/60";
   const lineDim = dark ? "bg-white/10" : "bg-ink/10";
   const lineLit = dark ? "bg-accent" : "bg-accent-deep";
-  const dotLit = dark ? "bg-accent shadow-[0_0_0_4px_rgba(91,156,246,.18)]" : "bg-accent-deep shadow-[0_0_0_4px_rgba(29,78,216,.14)]";
+  const dotLit = dark ? "bg-accent shadow-[0_0_0_4px_rgba(90,131,255,.18)]" : "bg-accent-deep shadow-[0_0_0_4px_rgba(39,85,196,.14)]";
   const dotDim = dark ? "bg-white/15" : "bg-ink/15";
 
   const RESTANTES = [
-    { label: "O que fizemos", texto: caso.solucao, peso: "font-light", tamanho: "text-[14.5px]" },
+    { label: "O que fizemos", texto: caso.solucao, peso: "font-normal", tamanho: "text-[14.5px]" },
     { label: "Resultado", texto: caso.resultado, peso: "font-medium", tamanho: "text-[15px]" },
   ];
 
@@ -59,7 +73,7 @@ export default function CaseCard({
       ...RESTANTES,
     ];
     return (
-      <article ref={ref} className={`h-full rounded-[20px] border p-7 ${cardBg}`}>
+      <article ref={ref} className={`h-full rounded-[10px] border p-7 ${cardBg}`}>
         <p className={`m-0 text-[13px] font-medium ${setorCls}`}>{caso.setor}</p>
         <div className="relative mt-6 pl-7">
           <div className={`absolute left-[5px] top-1.5 bottom-1.5 w-px ${lineDim}`} aria-hidden />
@@ -103,7 +117,7 @@ export default function CaseCard({
 
   /* ---------- modo expansível (página de Cases) ---------- */
   return (
-    <article className={`h-full rounded-[20px] border overflow-hidden ${cardBg}`}>
+    <article className={`h-full rounded-[10px] border overflow-hidden ${cardBg}`}>
       <button
         onClick={() => setAberto((v) => !v)}
         aria-expanded={aberto}
@@ -127,7 +141,7 @@ export default function CaseCard({
         </svg>
       </button>
 
-      <div style={{ maxHeight: aberto ? 400 : 0, transition: "max-height 480ms ease", overflow: "hidden" }}>
+      <div style={{ maxHeight: aberto ? (temVideo ? 1500 : 400) : 0, transition: "max-height 480ms ease", overflow: "hidden" }}>
         <div className="px-7 pb-7 pl-[52px] relative">
           <div className={`absolute left-[26px] top-0 bottom-3 w-px ${lineDim}`} aria-hidden />
           <div
@@ -164,6 +178,20 @@ export default function CaseCard({
             </div>
           ))}
         </div>
+
+        {temVideo && jaAbriu && (
+          <div className="px-7 pb-7">
+            <video
+              ref={videoRef}
+              src={`${caso.video_url}#t=0.1`}
+              controls
+              playsInline
+              preload="metadata"
+              className="block w-full mx-auto rounded-[8px] bg-black"
+              style={{ aspectRatio: ratio, maxWidth: larguraMax }}
+            />
+          </div>
+        )}
       </div>
     </article>
   );

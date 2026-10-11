@@ -51,23 +51,23 @@ export default function Home() {
       <Navbar floating />
 
       {/* ---------- HERO ---------- */}
-      <section className="relative min-h-screen flex flex-col overflow-hidden bg-ink bg-[radial-gradient(1100px_620px_at_78%_42%,rgba(29,78,216,.30),transparent_65%)]">
+      <section className="relative min-h-screen flex flex-col overflow-hidden bg-ink bg-[radial-gradient(1100px_620px_at_78%_42%,rgba(39,85,196,.38),transparent_65%)]">
         <KnotField />
         <div
           className="relative z-10 flex-1 flex items-center px-5 md:px-10 pt-28"
           style={{ opacity: fade, transform: `translateY(${sy * -0.12}px)` }}
         >
           <div className="max-w-content mx-auto w-full">
-            <div className="max-w-[620px] pb-[8vh]">
-              <h1 className="m-0 text-white font-semibold text-[clamp(38px,5.6vw,72px)] leading-[1.04] tracking-[-.028em]">
+            <div className="max-w-[1180px] pb-[8vh]">
+              <h1 className="m-0 text-white font-bold text-[clamp(42px,5.4vw,80px)] leading-[1.02] tracking-[-.065em]">
                 A tecnologia faz o repetitivo.
                 <br />
                 Sua equipe faz o que importa.
               </h1>
-              <p className="mt-7 text-white/60 text-[clamp(15px,1.25vw,17.5px)] leading-[1.62] max-w-[470px] font-light">
+              <p className="mt-7 text-[#b5bdcb] text-[clamp(15px,1.25vw,17px)] leading-[1.8] max-w-[460px] font-normal">
                 Entramos na operação, encontramos onde gente boa está fazendo trabalho de máquina, e resolvemos.
               </p>
-              <div className="flex gap-3.5 mt-10 flex-wrap">
+              <div className="flex flex-col sm:flex-row gap-3 mt-9 md:mt-10 max-w-[480px] sm:max-w-none">
                 <CTAButton to="/contato">Agendar uma conversa</CTAButton>
                 <CTAButton to="/cases" variant="ghost">
                   Ver o que construímos
@@ -76,7 +76,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <p className="relative z-10 text-center pb-8 text-white/35 text-[12px] m-0" style={{ opacity: fade }}>
+        <p className="relative z-10 text-center pb-8 text-[#8793aa] text-[9px] tracking-[.2em] uppercase m-0" style={{ opacity: fade }}>
           Role para continuar
         </p>
       </section>
@@ -109,11 +109,11 @@ export default function Home() {
           </H2>
         </Reveal>
         <Reveal delay={140}>
-          <div className="mt-14 grid gap-px rounded-[18px] overflow-hidden border border-white/[.07] bg-white/[.07] [grid-template-columns:repeat(auto-fit,minmax(230px,1fr))]">
+          <div className="mt-14 grid gap-px rounded-[10px] overflow-hidden border border-white/[.07] bg-white/[.07] [grid-template-columns:repeat(auto-fit,minmax(230px,1fr))]">
             {SINTOMAS.map((s) => (
               <div key={s.t} className="bg-ink px-7 py-9">
                 <p className="m-0 text-white text-[19px] font-medium">{s.t}</p>
-                <p className="mt-2.5 mb-0 text-white/50 text-[14.5px] leading-[1.6] font-light">{s.d}</p>
+                <p className="mt-2.5 mb-0 text-[#9ca6b7] text-[14.5px] leading-[1.7] font-normal">{s.d}</p>
               </div>
             ))}
           </div>
@@ -135,7 +135,7 @@ export default function Home() {
                 role="tab"
                 aria-selected={i === frente}
                 onClick={() => setFrente(i)}
-                className={`px-[22px] py-[11px] rounded-full text-[14.5px] font-medium transition-all ${
+                className={`px-[18px] py-3 rounded-[5px] text-[13px] font-bold transition-all ${
                   i === frente ? "bg-ink text-white" : "bg-ink/[.06] text-ink/60 hover:bg-ink/10"
                 }`}
               >
@@ -148,13 +148,13 @@ export default function Home() {
         <Reveal delay={200}>
           <div
             key={frente}
-            className="mt-8 grid gap-8 md:gap-14 bg-white rounded-[22px] p-7 md:p-12 border border-ink/[.08] shadow-[0_18px_50px_-30px_rgba(26,26,46,.35)] [grid-template-columns:repeat(auto-fit,minmax(290px,1fr))] animate-[fadeUp_.45s_ease]"
+            className="mt-8 grid gap-8 md:gap-14 bg-white rounded-[12px] p-7 md:p-12 border border-ink/[.08] shadow-[0_18px_50px_-30px_rgba(26,26,46,.35)] [grid-template-columns:repeat(auto-fit,minmax(290px,1fr))] animate-[fadeUp_.45s_ease]"
           >
             <div>
-              <h3 className="m-0 text-[clamp(22px,2.6vw,32px)] font-semibold tracking-[-.022em] text-ink leading-[1.18]">
+              <h3 className="m-0 text-[clamp(22px,2.6vw,32px)] font-bold tracking-[-.045em] text-ink leading-[1.12]">
                 {F.titulo}
               </h3>
-              <p className="mt-4 text-ink/60 text-[15.5px] leading-[1.68] font-light max-w-[460px]">{F.resumo}</p>
+              <p className="mt-4 text-ink/60 text-[15.5px] leading-[1.68] font-normal max-w-[460px]">{F.resumo}</p>
               <Link
                 to={`/${F.slug}`}
                 className="inline-block mt-7 text-accent-deep text-[15px] font-medium no-underline border-b border-accent-deep/35 pb-[3px]"
@@ -226,14 +226,14 @@ export default function Home() {
       <Section tone="light">
         <div className="grid gap-8 md:gap-16 items-center [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
           <Reveal>
-            <div className="aspect-[4/5] max-w-[400px] rounded-[24px] overflow-hidden">
+            <div className="aspect-[4/5] w-full max-w-[400px] rounded-[4px] overflow-hidden">
               <img src={gustavoFoto.url} alt="Gustavo Bettiol" className="w-full h-full object-cover" />
             </div>
           </Reveal>
           <Reveal delay={140}>
             <div>
               <Eyebrow light>Quem está por trás</Eyebrow>
-              <H2 className="text-ink !text-[clamp(26px,3.4vw,40px)]">Gustavo Bettiol</H2>
+              <H2 className="text-ink !text-[clamp(30px,3.6vw,46px)]">Gustavo Bettiol</H2>
               <Lead className="text-ink/60">
                 Fundador da nodus tecnologia. Capacita times de empresas da Serra Gaúcha e lidera projetos de automação
                 em indústrias e distribuidoras.
@@ -252,14 +252,14 @@ export default function Home() {
       </Section>
 
       {/* ---------- CTA FINAL ---------- */}
-      <section className="relative overflow-hidden bg-ink bg-[radial-gradient(800px_420px_at_50%_0%,rgba(29,78,216,.34),transparent_70%)] px-5 md:px-10 py-24 md:py-36 text-center">
+      <section className="relative overflow-hidden bg-ink bg-[radial-gradient(800px_420px_at_50%_0%,rgba(39,85,196,.34),transparent_70%)] px-5 md:px-10 py-24 md:py-36 text-center">
         <Reveal>
-          <h2 className="mx-auto max-w-[760px] text-white font-semibold text-[clamp(28px,4.4vw,54px)] leading-[1.1] tracking-[-.028em] m-0">
+          <h2 className="mx-auto max-w-[760px] text-white font-bold text-[clamp(34px,5.4vw,72px)] leading-[1.05] tracking-[-.06em] m-0">
             Onde sua equipe está fazendo trabalho de máquina?
           </h2>
         </Reveal>
         <Reveal delay={130}>
-          <p className="mx-auto mt-6 max-w-[480px] text-white/60 text-[16.5px] leading-[1.6] font-light">
+          <p className="mx-auto mt-6 max-w-[480px] text-white/60 text-[16.5px] leading-[1.6] font-normal">
             Uma conversa de 30 minutos costuma ser suficiente para descobrir.
           </p>
         </Reveal>

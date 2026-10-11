@@ -68,7 +68,7 @@ export default function BlogPost() {
 
           {post && (
             <>
-              <h1 className="mt-7 mb-0 text-[clamp(28px,4.4vw,46px)] font-semibold leading-[1.12] tracking-[-.028em]">
+              <h1 className="mt-7 mb-0 text-[clamp(28px,4.4vw,46px)] font-bold leading-[1.08] tracking-[-.055em]">
                 {post.titulo}
               </h1>
               <p className="mt-4 text-ink/50 text-[14px]">
@@ -77,7 +77,7 @@ export default function BlogPost() {
                   ` · ${new Date(post.publicado_em).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" })}`}
               </p>
               {post.capa_url && (
-                <img src={post.capa_url} alt="" className="mt-8 w-full rounded-[20px] aspect-[16/9] object-cover" />
+                <img src={post.capa_url} alt="" className="mt-8 w-full rounded-[10px] aspect-[16/9] object-cover" />
               )}
               <div
                 className="prose-nodus mt-10"
@@ -89,13 +89,13 @@ export default function BlogPost() {
       </article>
 
       <style>{`
-        .prose-nodus p { margin: 0 0 20px; font-size: 17px; line-height: 1.75; font-weight: 300; color: rgba(26,26,46,.78); }
+        .prose-nodus p { margin: 0 0 20px; font-size: 17px; line-height: 1.75; font-weight: 400; color: rgba(26,26,46,.78); }
         .prose-nodus h2 { margin: 40px 0 14px; font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
         .prose-nodus h3 { margin: 32px 0 12px; font-size: 20px; font-weight: 600; }
         .prose-nodus ul { margin: 0 0 20px; padding-left: 22px; }
         .prose-nodus li { font-size: 17px; line-height: 1.7; font-weight: 300; margin-bottom: 8px; color: rgba(26,26,46,.78); }
-        .prose-nodus a { color: #1D4ED8; }
-        .prose-nodus strong { font-weight: 600; color: #0D0D1A; }
+        .prose-nodus a { color: #3a5fd6; }
+        .prose-nodus strong { font-weight: 600; color: #080b12; }
       `}</style>
 
       <Footer />

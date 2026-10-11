@@ -193,7 +193,7 @@ export default function KnotField() {
             const dx = P[i].x - P[j].x, dy = P[i].y - P[j].y;
             const d2 = dx * dx + dy * dy;
             if (d2 < 260) {
-              ctx.strokeStyle = `rgba(91,156,246,${(1 - d2 / 260) * 0.35})`;
+              ctx.strokeStyle = `rgba(90,131,255,${(1 - d2 / 260) * 0.35})`;
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(P[i].x, P[i].y); ctx.lineTo(P[j].x, P[j].y); ctx.stroke();

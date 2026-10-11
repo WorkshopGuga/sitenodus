@@ -30,7 +30,7 @@ export default function Contato() {
     value: (form as any)[k],
     onChange: (e: any) => setForm({ ...form, [k]: e.target.value }),
     className:
-      "w-full bg-white border border-ink/15 rounded-xl px-4 py-3 text-[15px] text-ink placeholder:text-ink/35 focus:border-accent-deep outline-none transition-colors",
+      "w-full bg-white border border-ink/15 rounded-[5px] px-4 py-3.5 text-[16px] text-ink placeholder:text-ink/35 focus:border-accent-deep outline-none transition-colors",
   });
 
   const enviar = async () => {
@@ -56,14 +56,14 @@ export default function Contato() {
       {/* ---------- SEDES ---------- */}
       <section className="bg-ink px-5 md:px-10 py-20 md:py-28">
         <div className="max-w-content mx-auto">
-          <p className="m-0 text-accent text-[14px] font-medium">Onde estamos</p>
-          <h2 className="mt-4 mb-0 text-white font-semibold text-[clamp(26px,3.6vw,42px)] leading-[1.12] tracking-[-.026em] max-w-[640px]">
+          <p className="m-0 flex items-center gap-3 text-[10px] md:text-[11px] font-bold uppercase tracking-[.2em] text-white"><span aria-hidden className="w-[7px] h-[7px] rounded-full bg-accent shadow-[0_0_16px_#5a83ff]" />Onde estamos</p>
+          <h2 className="mt-4 mb-0 text-white font-bold text-[clamp(30px,4.4vw,52px)] leading-[1.08] tracking-[-.05em] max-w-[640px]">
             Atendimento remoto, onde sua empresa estiver — com endereço físico em dois pontos.
           </h2>
 
           <div className="mt-12 grid gap-4 md:grid-cols-2">
             {SEDES.map((s) => (
-              <div key={s.nome} className="rounded-[20px] border border-white/[.08] bg-white/[.03] p-7">
+              <div key={s.nome} className="rounded-[10px] border border-white/[.08] bg-white/[.03] p-7">
                 <p className="m-0 text-accent text-[13px] font-medium">{s.nome}</p>
                 <p className="mt-3 mb-0 text-white text-[17px] font-medium">{s.endereco}</p>
                 <p className="mt-1 mb-0 text-white/50 text-[15px]">{s.cidade}</p>
@@ -91,15 +91,15 @@ export default function Contato() {
         <div className="max-w-[560px] mx-auto">
           {estado === "ok" ? (
             <div className="text-center py-14">
-              <p className="text-ink text-[22px] font-semibold m-0">Recebemos sua mensagem.</p>
-              <p className="text-ink/60 text-[15.5px] mt-3 font-light">
+              <p className="text-ink text-[24px] font-bold tracking-[-.04em] m-0">Recebemos sua mensagem.</p>
+              <p className="text-ink/60 text-[15.5px] mt-3 font-normal">
                 Retornamos em até um dia útil. Se preferir adiantar, chame no WhatsApp.
               </p>
               <a
                 href={WHATSAPP}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block mt-7 px-7 py-3.5 rounded-full bg-gradient-to-br from-accent to-accent-deep text-white text-[15px] font-medium no-underline"
+                className="inline-block mt-7 px-7 py-3.5 rounded-[5px] bg-[#e9eefc] text-[#0b1020] text-[13px] font-bold min-h-[50px] hover:bg-white no-underline"
               >
                 Falar no WhatsApp
               </a>
@@ -131,7 +131,7 @@ export default function Contato() {
               <button
                 onClick={enviar}
                 disabled={estado === "enviando" || !form.nome.trim() || !aceite}
-                className="mt-2 px-7 py-4 rounded-full bg-gradient-to-br from-accent to-accent-deep text-white text-[15px] font-medium disabled:opacity-45 transition-opacity"
+                className="mt-2 px-7 py-4 rounded-[5px] bg-[#e9eefc] text-[#0b1020] text-[13px] font-bold min-h-[50px] hover:bg-white disabled:opacity-45 transition-opacity"
               >
                 {estado === "enviando" ? "Enviando…" : "Enviar"}
               </button>

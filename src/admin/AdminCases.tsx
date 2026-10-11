@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { useCrud } from "./useCrud";
-import { Cabecalho, Cartao, Botao, Campo, input, Vazio } from "./componentes";
+import { Cabecalho, Cartao, Botao, Campo, input, Vazio, UploadVideo } from "./componentes";
 import { CATEGORIAS_CASE } from "../content/categorias";
 import type { CaseItem } from "../lib/supabase";
 
-const vazio = { setor: "", categoria: CATEGORIAS_CASE[0], desafio: "", solucao: "", resultado: "", destaque: false, ordem: 0, ativo: true };
+const vazio = { setor: "", categoria: CATEGORIAS_CASE[0], desafio: "", solucao: "", resultado: "", destaque: false, ordem: 0, ativo: true, video_url: null, video_formato: null };
+
+// Só manda as colunas de vídeo quando há vídeo (ou quando o case já tinha e foi removido).
+// Assim o painel continua salvando mesmo antes do SQL do vídeo ser rodado.
+const comVideo = (v: any, jaTinha = false) => {
+  const { video_url, video_formato, ...resto } = v;
+  if (video_url) return { ...resto, video_url, video_formato: video_formato || "quadrado" };
+  return jaTinha ? { ...resto, video_url: null, video_formato: null } : resto;
+};
 
 function FormularioCase({
   valor, onMudar, onSalvar, onCancelar, salvando,
@@ -38,6 +46,20 @@ function FormularioCase({
           <textarea className={input} rows={2} value={valor.resultado}
             onChange={(e) => onMudar({ ...valor, resultado: e.target.value })} />
         </Campo>
+        <Campo label="Vídeo do case (opcional)">
+          <UploadVideo bucket="videos" valor={valor.video_url ?? null}
+            onChange={(url, formato) => onMudar({ ...valor, video_url: url, video_formato: formato })} />
+        </Campo>
+        {valor.video_url && (
+          <Campo label="Formato do vídeo">
+            <select className={input + " max-w-[260px]"} value={valor.video_formato ?? "quadrado"}
+              onChange={(e) => onMudar({ ...valor, video_formato: e.target.value })}>
+              <option value="quadrado" className="bg-ink">Quadrado (1:1)</option>
+              <option value="vertical" className="bg-ink">Vertical (9:16)</option>
+              <option value="horizontal" className="bg-ink">Horizontal (16:9)</option>
+            </select>
+          </Campo>
+        )}
         <div className="flex items-center gap-6 flex-wrap">
           <label className="flex items-center gap-2 text-white/65 text-[14px]">
             <input type="checkbox" checked={valor.destaque}
@@ -69,7 +91,7 @@ export default function AdminCases() {
 
   const salvar = async () => {
     if (!novo.setor || !novo.desafio) return;
-    const ok = await criar({ ...novo, ordem: Number(novo.ordem) || itens.length + 1 });
+    const ok = await criar({ ...comVideo(novo), ordem: Number(novo.ordem) || itens.length + 1 });
     if (ok) { setNovo(vazio); setAbrindo(false); }
   };
 
@@ -78,7 +100,8 @@ export default function AdminCases() {
   const salvarEdicao = async () => {
     if (!editandoId || !rascunho) return;
     const { id, ...campos } = rascunho;
-    const ok = await atualizar(editandoId, { ...campos, ordem: Number(campos.ordem) });
+    const original = itens.find((i) => i.id === editandoId);
+    const ok = await atualizar(editandoId, { ...comVideo(campos, !!original?.video_url), ordem: Number(campos.ordem) });
     if (ok) { setEditandoId(null); setRascunho(null); }
   };
 
@@ -120,6 +143,9 @@ export default function AdminCases() {
                   )}
                   <p className="mt-2 mb-0 text-white text-[15px] leading-[1.5]">{c.desafio}</p>
                   <p className="mt-2 mb-0 text-white/50 text-[13.5px] leading-[1.55] font-light">{c.resultado}</p>
+                  {c.video_url && (
+                    <p className="mt-2 mb-0 text-white/40 text-[12px]">▶ Vídeo {c.video_formato ?? ""}</p>
+                  )}
                 </div>
                 <div className="flex items-center gap-3 flex-wrap">
                   <label className="flex items-center gap-2 text-white/60 text-[13.5px]">
