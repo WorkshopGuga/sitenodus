@@ -41,7 +41,7 @@ export default function Navbar({ floating = false }: { floating?: boolean }) {
   return (
     <header
       className={`${floating ? "fixed" : "sticky"} top-0 inset-x-0 z-50 transition-colors duration-300 ${
-        solid || open ? "bg-ink/80 backdrop-blur-xl border-b border-white/[.06]" : ""
+        solid || open ? "bg-ink/95 backdrop-blur-xl border-b border-white/[.06]" : ""
       }`}
     >
       <div ref={barra} aria-hidden className="absolute top-0 left-0 h-[2px] w-0 bg-[#7f9eff]" />
