@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import { Section, Eyebrow, H2, Lead, CTAButton } from "../components/ui";
 import StepTimeline from "../components/StepTimeline";
 import CaseCard from "../components/CaseCard";
+import CaseVideoCard from "../components/CaseVideoCard";
 import LogoMarquee from "../components/LogoMarquee";
 import DepoimentosCarrossel from "../components/DepoimentosCarrossel";
 import { FRENTES } from "../content/frentes";
@@ -52,9 +53,12 @@ export default function Home() {
 
       {/* ---------- HERO ---------- */}
       <section className="relative min-h-screen flex flex-col overflow-hidden bg-ink bg-[radial-gradient(1100px_620px_at_78%_42%,rgba(39,85,196,.38),transparent_65%)]">
-        <KnotField />
+        {/* celular: o ícone fica numa faixa própria no topo e o texto desce; desktop: ocupa o hero todo */}
+        <div className="absolute inset-x-0 top-[56px] h-[38svh] min-h-[270px] md:top-0 md:inset-0 md:h-auto md:min-h-0">
+          <KnotField />
+        </div>
         <div
-          className="relative z-10 flex-1 flex items-center px-5 md:px-10 pt-28"
+          className="relative z-10 flex-1 flex items-start md:items-center px-5 md:px-10 pt-[max(43svh,310px)] md:pt-28"
           style={{ opacity: fade, transform: `translateY(${sy * -0.12}px)` }}
         >
           <div className="max-w-content mx-auto w-full">
@@ -186,17 +190,18 @@ export default function Home() {
             <H2 className="text-white max-w-[720px]">Projetos reais. Nomes preservados por contrato.</H2>
           </Reveal>
           <div className="mt-14 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
-            {cases.slice(0, 6).map((c) => (
-              <CaseCard key={c.id} caso={c} tone="dark" />
-            ))}
+            {cases.slice(0, 6).map((c) =>
+              c.video_url && c.video_formato ? (
+                <CaseVideoCard key={c.id} caso={c} tone="dark" />
+              ) : (
+                <CaseCard key={c.id} caso={c} tone="dark" />
+              ),
+            )}
           </div>
           <Reveal delay={200}>
-            <Link
-              to="/cases"
-              className="inline-block mt-10 text-accent text-[15px] font-medium no-underline border-b border-accent/40 pb-[3px]"
-            >
-              Ver todos os cases
-            </Link>
+            <div className="mt-12">
+              <CTAButton to="/cases" size="lg">Ver todos os cases</CTAButton>
+            </div>
           </Reveal>
         </div>
       </section>
