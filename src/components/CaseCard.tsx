@@ -27,14 +27,6 @@ export default function CaseCard({
   const ref = useRef<HTMLDivElement>(null);
   const [porScroll, setPorScroll] = useState(false);
   const [aberto, setAberto] = useState(false);
-  const [jaAbriu, setJaAbriu] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // o vídeo só é carregado na primeira abertura e pausa quando o card fecha
-  useEffect(() => {
-    if (aberto) setJaAbriu(true);
-    else videoRef.current?.pause();
-  }, [aberto]);
 
   useEffect(() => {
     if (expandable) return;
@@ -47,10 +39,6 @@ export default function CaseCard({
   }, [expandable]);
 
   const on = expandable ? aberto : porScroll;
-
-  const temVideo = !!caso.video_url && !!caso.video_formato;
-  const ratio = caso.video_formato === "vertical" ? "9 / 16" : caso.video_formato === "horizontal" ? "16 / 9" : "1 / 1";
-  const larguraMax = caso.video_formato === "vertical" ? 260 : caso.video_formato === "quadrado" ? 420 : 640;
 
   const dark = tone === "dark";
   const cardBg = dark ? "bg-white/[.035] border-white/[.08]" : "bg-white border-ink/[.08]";
@@ -117,7 +105,7 @@ export default function CaseCard({
 
   /* ---------- modo expansível (página de Cases) ---------- */
   return (
-    <article className={`h-full rounded-[10px] border overflow-hidden ${cardBg}`}>
+    <article className={`self-start rounded-[10px] border overflow-hidden ${cardBg}`}>
       <button
         onClick={() => setAberto((v) => !v)}
         aria-expanded={aberto}
@@ -141,7 +129,7 @@ export default function CaseCard({
         </svg>
       </button>
 
-      <div style={{ maxHeight: aberto ? (temVideo ? 1500 : 400) : 0, transition: "max-height 480ms ease", overflow: "hidden" }}>
+      <div style={{ maxHeight: aberto ? 400 : 0, transition: "max-height 480ms ease", overflow: "hidden" }}>
         <div className="px-7 pb-7 pl-[52px] relative">
           <div className={`absolute left-[26px] top-0 bottom-3 w-px ${lineDim}`} aria-hidden />
           <div
@@ -178,20 +166,6 @@ export default function CaseCard({
             </div>
           ))}
         </div>
-
-        {temVideo && jaAbriu && (
-          <div className="px-7 pb-7">
-            <video
-              ref={videoRef}
-              src={`${caso.video_url}#t=0.1`}
-              controls
-              playsInline
-              preload="metadata"
-              className="block w-full mx-auto rounded-[8px] bg-black"
-              style={{ aspectRatio: ratio, maxWidth: larguraMax }}
-            />
-          </div>
-        )}
       </div>
     </article>
   );

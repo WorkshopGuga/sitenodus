@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import { Section, PageHero, CTAButton } from "../components/ui";
 import CaseCard from "../components/CaseCard";
+import CaseVideoCard from "../components/CaseVideoCard";
 import LogoMarquee from "../components/LogoMarquee";
 import { useTabela } from "../lib/useTabela";
 import { CASES_FALLBACK } from "../content/site";
@@ -68,9 +69,13 @@ export default function Cases() {
           </p>
         ) : (
           <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
-            {filtrados.map((c) => (
-              <CaseCard key={c.id} caso={c} tone="light" expandable />
-            ))}
+            {filtrados.map((c) =>
+              c.video_url && c.video_formato ? (
+                <CaseVideoCard key={c.id} caso={c} />
+              ) : (
+                <CaseCard key={c.id} caso={c} tone="light" expandable />
+              ),
+            )}
           </div>
         )}
       </Section>
