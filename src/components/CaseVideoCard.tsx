@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CaseDado } from "./CaseCard";
 
 const LARGURA_MAX: Record<string, number> = { vertical: 320, quadrado: 460, horizontal: 640 };
@@ -12,26 +12,36 @@ const RATIO: Record<string, string> = { vertical: "9 / 16", quadrado: "1 / 1", h
 
 /**
  * Case com vídeo: texto de um lado, vídeo grande do outro, sempre visível (sem abrir).
- * O vídeo toca sozinho, sem som e em loop, enquanto está na tela, e pausa ao sair.
- * Os controles ficam disponíveis para pausar ou ligar o som.
+ * Sem player: o vídeo toca sozinho, sem som e em loop, enquanto está na tela, e pausa ao sair.
+ * Se o navegador bloquear o autoplay (ex: economia de bateria no iPhone), aparece um botão de play.
  */
-export default function CaseVideoCard({ caso }: { caso: CaseDado }) {
+export default function CaseVideoCard({ caso, tone = "light" }: { caso: CaseDado; tone?: "dark" | "light" }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [bloqueado, setBloqueado] = useState(false);
   const formato = caso.video_formato && RATIO[caso.video_formato] ? caso.video_formato : "quadrado";
+  const dark = tone === "dark";
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || typeof IntersectionObserver === "undefined") return;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    if (!v) return;
+    const onPlaying = () => setBloqueado(false);
+    v.addEventListener("playing", onPlaying);
+    if (typeof IntersectionObserver === "undefined" || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setBloqueado(true); // sem autoplay: deixa o botão de play
+      return () => v.removeEventListener("playing", onPlaying);
+    }
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) v.play().catch(() => {});
+        if (e.isIntersecting) v.play().catch(() => setBloqueado(true));
         else v.pause();
       },
       { threshold: 0.5 },
     );
     io.observe(v);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      v.removeEventListener("playing", onPlaying);
+    };
   }, []);
 
   const blocos = [
@@ -39,36 +49,60 @@ export default function CaseVideoCard({ caso }: { caso: CaseDado }) {
     { label: "Resultado", texto: caso.resultado },
   ];
 
+  const cardCls = dark ? "border-white/[.08] bg-white/[.035]" : "border-ink/[.08] bg-white";
+  const palcoCls = dark ? "bg-black/30" : "bg-ink";
+  const setorCls = dark ? "text-accent" : "text-accent-deep";
+  const dotCls = dark ? "bg-accent" : "bg-accent-deep";
+  const tituloCls = dark ? "text-white" : "text-ink";
+  const linhaCls = dark ? "border-white/10" : "border-ink/10";
+  const labelCls = dark ? "text-white/40" : "text-ink/40";
+  const textoCls = dark ? "text-white/60" : "text-ink/65";
+
   return (
-    <article className={`col-span-full overflow-hidden rounded-[10px] border border-ink/[.08] bg-white grid ${COLUNAS[formato]}`}>
+    <article className={`col-span-full overflow-hidden rounded-[10px] border grid ${COLUNAS[formato]} ${cardCls}`}>
       {/* vídeo: no celular vem primeiro, no desktop fica ao lado */}
-      <div className="order-1 md:order-2 bg-ink p-4 md:p-8 grid place-items-center">
-        <video
-          ref={videoRef}
-          src={`${caso.video_url}#t=0.1`}
-          muted
-          loop
-          playsInline
-          controls
-          preload="metadata"
-          className="block w-full mx-auto rounded-[6px] bg-black"
-          style={{ maxWidth: LARGURA_MAX[formato], aspectRatio: RATIO[formato] }}
-        />
+      <div className={`order-1 md:order-2 p-4 md:p-8 grid place-items-center ${palcoCls}`}>
+        <div className="relative w-full mx-auto" style={{ maxWidth: LARGURA_MAX[formato], aspectRatio: RATIO[formato] }}>
+          <video
+            ref={videoRef}
+            src={`${caso.video_url}#t=0.1`}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            disablePictureInPicture
+            disableRemotePlayback
+            tabIndex={-1}
+            aria-label={`Vídeo do case: ${caso.setor}`}
+            onContextMenu={(e) => e.preventDefault()}
+            className="block w-full h-full rounded-[6px] bg-black pointer-events-none select-none"
+          />
+          {bloqueado && (
+            <button
+              type="button"
+              aria-label="Reproduzir vídeo"
+              onClick={() => videoRef.current?.play().catch(() => {})}
+              className="absolute inset-0 grid place-items-center rounded-[6px] bg-black/35"
+            >
+              <span className="w-16 h-16 rounded-full bg-[#e9eefc] text-[#0b1020] grid place-items-center text-[22px] pl-1">▶</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="order-2 md:order-1 p-6 md:p-10 flex flex-col justify-center">
-        <p className="m-0 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.16em] leading-[1.6] text-accent-deep">
-          <span aria-hidden className="shrink-0 w-[7px] h-[7px] rounded-full bg-accent-deep" />
+        <p className={`m-0 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.16em] leading-[1.6] ${setorCls}`}>
+          <span aria-hidden className={`shrink-0 w-[7px] h-[7px] rounded-full ${dotCls}`} />
           {caso.setor}
         </p>
-        <h3 className="mt-5 mb-0 text-ink font-bold text-[clamp(22px,2.6vw,32px)] leading-[1.15] tracking-[-.045em]">
+        <h3 className={`mt-5 mb-0 font-bold text-[clamp(22px,2.6vw,32px)] leading-[1.15] tracking-[-.045em] ${tituloCls}`}>
           {caso.desafio}
         </h3>
         <div className="mt-7 grid gap-6">
           {blocos.map((b) => (
-            <div key={b.label} className="border-t border-ink/10 pt-5">
-              <p className="m-0 text-[10px] font-bold uppercase tracking-[.2em] text-ink/40">{b.label}</p>
-              <p className="mt-2 mb-0 text-ink/65 text-[15px] leading-[1.7]">{b.texto}</p>
+            <div key={b.label} className={`border-t pt-5 ${linhaCls}`}>
+              <p className={`m-0 text-[10px] font-bold uppercase tracking-[.2em] ${labelCls}`}>{b.label}</p>
+              <p className={`mt-2 mb-0 text-[15px] leading-[1.7] ${textoCls}`}>{b.texto}</p>
             </div>
           ))}
         </div>

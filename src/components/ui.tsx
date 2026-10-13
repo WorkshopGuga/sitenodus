@@ -48,15 +48,15 @@ export function Lead({ children, className = "" }: { children: ReactNode; classN
   );
 }
 
-export function CTAButton({ to, children, variant = "solid" }:
-  { to: string; children: ReactNode; variant?: "solid" | "ghost" }) {
+export function CTAButton({ to, children, variant = "solid", size = "md" }:
+  { to: string; children: ReactNode; variant?: "solid" | "ghost"; size?: "md" | "lg" }) {
   const cls = variant === "solid"
     ? "bg-[#e9eefc] text-[#0b1020] hover:bg-white"
     : "bg-[#0c111d]/40 border border-white/[.22] text-white hover:border-white/40";
   return (
     <Link
       to={to}
-      className={`inline-flex items-center justify-between gap-6 min-h-[50px] px-[22px] py-[15px] rounded-[5px] text-[12.5px] font-bold no-underline transition-all duration-200 hover:-translate-y-[3px] ${cls}`}
+      className={`${size === "lg" ? "w-full sm:w-auto min-h-[64px] px-8 py-[20px] text-[14.5px] gap-10" : "min-h-[50px] px-[22px] py-[15px] text-[12.5px] gap-6"} inline-flex items-center justify-between rounded-[5px] font-bold no-underline transition-all duration-200 hover:-translate-y-[3px] ${cls}`}
     >
       <span>{children}</span>
       <span aria-hidden>→</span>

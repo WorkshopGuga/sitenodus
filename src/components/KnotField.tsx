@@ -143,7 +143,7 @@ export default function KnotField() {
 
         const escala = Math.min(W, H) * (isSmall() ? 0.62 : 0.72);
         const cx = isSmall() ? W / 2 : W * 0.72;
-        const cy = isSmall() ? H * 0.4 : H / 2;
+        const cy = H / 2;
 
         const novos: Particula[] = [];
         loops.forEach((loop, li) => {
@@ -213,7 +213,16 @@ export default function KnotField() {
       build();
       raf.current = requestAnimationFrame(draw);
 
-      const onResize = () => { t0.current = 0; build(); };
+      // No celular, tocar/rolar mostra e esconde a barra de endereço e dispara "resize" só de altura.
+      // Reconstruir aí espalhava todas as partículas (o "bug" ao tocar). Só refaz se a largura mudou.
+      let larguraAnterior = window.innerWidth;
+      const onResize = () => {
+        const w = window.innerWidth;
+        if (w === larguraAnterior && isSmall()) return;
+        larguraAnterior = w;
+        t0.current = 0;
+        build();
+      };
       window.addEventListener("resize", onResize);
 
       let onMove: ((e: MouseEvent) => void) | undefined;
