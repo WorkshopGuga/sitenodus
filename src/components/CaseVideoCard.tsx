@@ -24,18 +24,26 @@ export default function CaseVideoCard({ caso, tone = "light" }: { caso: CaseDado
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    // React não grava o atributo "muted" no HTML; sem ele o navegador bloqueia o autoplay
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
     const onPlaying = () => setBloqueado(false);
     v.addEventListener("playing", onPlaying);
     if (typeof IntersectionObserver === "undefined" || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
       setBloqueado(true); // sem autoplay: deixa o botão de play
       return () => v.removeEventListener("playing", onPlaying);
     }
+    const tocar = () => {
+      const p = v.play();
+      if (p) p.catch(() => setBloqueado(true));
+    };
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) v.play().catch(() => setBloqueado(true));
+        if (e.isIntersecting) tocar();
         else v.pause();
       },
-      { threshold: 0.5 },
+      { threshold: 0.15, rootMargin: "200px 0px" },
     );
     io.observe(v);
     return () => {
@@ -65,11 +73,12 @@ export default function CaseVideoCard({ caso, tone = "light" }: { caso: CaseDado
         <div className="relative w-full mx-auto" style={{ maxWidth: LARGURA_MAX[formato], aspectRatio: RATIO[formato] }}>
           <video
             ref={videoRef}
-            src={`${caso.video_url}#t=0.1`}
+            src={caso.video_url ?? undefined}
             muted
+            autoPlay
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             disablePictureInPicture
             disableRemotePlayback
             tabIndex={-1}
