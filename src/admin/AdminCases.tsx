@@ -158,7 +158,7 @@ export default function AdminCases() {
                   )}
                   <p className="mt-2 mb-0 text-white text-[15px] leading-[1.5]">{c.desafio}</p>
                   <p className="mt-2 mb-0 text-white/50 text-[13.5px] leading-[1.55] font-light">{c.resultado}</p>
-                  {c.video_url && (
+                  {(c.video_claro_url || c.video_escuro_url || c.video_url) && (
                     <p className="mt-2 mb-0 text-white/40 text-[12px]">▶ Vídeo {c.video_formato ?? ""}</p>
                   )}
                 </div>
