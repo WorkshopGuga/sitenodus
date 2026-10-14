@@ -33,6 +33,8 @@ export type CaseItem = {
   id: string; setor: string; categoria: string | null; desafio: string; solucao: string;
   resultado: string; destaque: boolean; ordem: number; ativo: boolean;
   video_url?: string | null; video_formato?: "quadrado" | "vertical" | "horizontal" | null;
+  video_claro_url?: string | null; poster_claro_url?: string | null;
+  video_escuro_url?: string | null; poster_escuro_url?: string | null;
 };
 
 export type GaleriaImagem = {

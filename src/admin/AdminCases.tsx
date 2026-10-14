@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { useCrud } from "./useCrud";
-import { Cabecalho, Cartao, Botao, Campo, input, Vazio, UploadVideo } from "./componentes";
+import { Cabecalho, Cartao, Botao, Campo, input, Vazio, UploadVideo, UploadImagem } from "./componentes";
 import { CATEGORIAS_CASE } from "../content/categorias";
 import type { CaseItem } from "../lib/supabase";
 
-const vazio = { setor: "", categoria: CATEGORIAS_CASE[0], desafio: "", solucao: "", resultado: "", destaque: false, ordem: 0, ativo: true, video_url: null, video_formato: null };
+const vazio = {
+  setor: "", categoria: CATEGORIAS_CASE[0], desafio: "", solucao: "", resultado: "", destaque: false, ordem: 0, ativo: true,
+  video_formato: null, video_claro_url: null, poster_claro_url: null, video_escuro_url: null, poster_escuro_url: null,
+};
 
-// Só manda as colunas de vídeo quando há vídeo (ou quando o case já tinha e foi removido).
-// Assim o painel continua salvando mesmo antes do SQL do vídeo ser rodado.
-const comVideo = (v: any, jaTinha = false) => {
-  const { video_url, video_formato, ...resto } = v;
-  if (video_url) return { ...resto, video_url, video_formato: video_formato || "quadrado" };
-  return jaTinha ? { ...resto, video_url: null, video_formato: null } : resto;
+// Formato só faz sentido quando há algum vídeo.
+const comVideo = (v: any, _jaTinha = false) => {
+  const temVideo = !!(v.video_claro_url || v.video_escuro_url || v.video_url);
+  return { ...v, video_formato: temVideo ? (v.video_formato || "quadrado") : null };
 };
 
 function FormularioCase({
@@ -46,11 +47,25 @@ function FormularioCase({
           <textarea className={input} rows={2} value={valor.resultado}
             onChange={(e) => onMudar({ ...valor, resultado: e.target.value })} />
         </Campo>
-        <Campo label="Vídeo do case (opcional)">
-          <UploadVideo bucket="videos" valor={valor.video_url ?? null}
-            onChange={(url, formato) => onMudar({ ...valor, video_url: url, video_formato: formato })} />
+        <Campo label="Vídeo claro — aparece na home (opcional)">
+          <UploadVideo bucket="videos" valor={valor.video_claro_url ?? null}
+            onChange={(url, formato) => onMudar({ ...valor, video_claro_url: url, video_formato: url ? (valor.video_formato || formato) : valor.video_formato })} />
         </Campo>
-        {valor.video_url && (
+        <Campo label="Capa do vídeo claro">
+          <UploadImagem bucket="videos" valor={valor.poster_claro_url ?? null}
+            onChange={(url) => onMudar({ ...valor, poster_claro_url: url })}
+            maxLargura={1280} maxAltura={1280} />
+        </Campo>
+        <Campo label="Vídeo escuro — aparece em Cases (opcional)">
+          <UploadVideo bucket="videos" valor={valor.video_escuro_url ?? null}
+            onChange={(url, formato) => onMudar({ ...valor, video_escuro_url: url, video_formato: url ? (valor.video_formato || formato) : valor.video_formato })} />
+        </Campo>
+        <Campo label="Capa do vídeo escuro">
+          <UploadImagem bucket="videos" valor={valor.poster_escuro_url ?? null}
+            onChange={(url) => onMudar({ ...valor, poster_escuro_url: url })}
+            maxLargura={1280} maxAltura={1280} />
+        </Campo>
+        {(valor.video_claro_url || valor.video_escuro_url || valor.video_url) && (
           <Campo label="Formato do vídeo">
             <select className={input + " max-w-[260px]"} value={valor.video_formato ?? "quadrado"}
               onChange={(e) => onMudar({ ...valor, video_formato: e.target.value })}>
@@ -143,7 +158,7 @@ export default function AdminCases() {
                   )}
                   <p className="mt-2 mb-0 text-white text-[15px] leading-[1.5]">{c.desafio}</p>
                   <p className="mt-2 mb-0 text-white/50 text-[13.5px] leading-[1.55] font-light">{c.resultado}</p>
-                  {c.video_url && (
+                  {(c.video_claro_url || c.video_escuro_url || c.video_url) && (
                     <p className="mt-2 mb-0 text-white/40 text-[12px]">▶ Vídeo {c.video_formato ?? ""}</p>
                   )}
                 </div>

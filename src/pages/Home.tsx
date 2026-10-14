@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import { Section, Eyebrow, H2, Lead, CTAButton } from "../components/ui";
 import StepTimeline from "../components/StepTimeline";
 import CaseCard from "../components/CaseCard";
-import CaseVideoCard from "../components/CaseVideoCard";
+import CaseVideoCard, { videoDoCase } from "../components/CaseVideoCard";
 import LogoMarquee from "../components/LogoMarquee";
 import DepoimentosCarrossel from "../components/DepoimentosCarrossel";
 import { FRENTES } from "../content/frentes";
@@ -191,8 +191,8 @@ export default function Home() {
           </Reveal>
           <div className="mt-14 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
             {cases.slice(0, 6).map((c) =>
-              c.video_url && c.video_formato ? (
-                <CaseVideoCard key={c.id} caso={c} tone="dark" />
+              videoDoCase(c, "claro") ? (
+                <CaseVideoCard key={c.id} caso={c} tone="dark" versao="claro" />
               ) : (
                 <CaseCard key={c.id} caso={c} tone="dark" />
               ),
