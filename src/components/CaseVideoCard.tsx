@@ -15,7 +15,19 @@ const RATIO: Record<string, string> = { vertical: "9 / 16", quadrado: "1 / 1", h
  * Sem player: o vídeo toca sozinho, sem som e em loop, enquanto está na tela, e pausa ao sair.
  * Se o navegador bloquear o autoplay (ex: economia de bateria no iPhone), aparece um botão de play.
  */
-export default function CaseVideoCard({ caso, tone = "light" }: { caso: CaseDado; tone?: "dark" | "light" }) {
+/** Escolhe o vídeo e a capa da versão pedida, com fallback para a outra versão e para o vídeo antigo. */
+export function videoDoCase(caso: CaseDado, versao: "claro" | "escuro") {
+  const claro = { src: caso.video_claro_url, poster: caso.poster_claro_url };
+  const escuro = { src: caso.video_escuro_url, poster: caso.poster_escuro_url };
+  const [a, b] = versao === "claro" ? [claro, escuro] : [escuro, claro];
+  if (a.src) return { src: a.src, poster: a.poster ?? undefined };
+  if (b.src) return { src: b.src, poster: b.poster ?? undefined };
+  if (caso.video_url) return { src: caso.video_url, poster: undefined };
+  return null;
+}
+
+export default function CaseVideoCard({ caso, tone = "light", versao = "escuro" }: { caso: CaseDado; tone?: "dark" | "light"; versao?: "claro" | "escuro" }) {
+  const video = videoDoCase(caso, versao);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [bloqueado, setBloqueado] = useState(false);
   const formato = caso.video_formato && RATIO[caso.video_formato] ? caso.video_formato : "quadrado";
@@ -73,18 +85,19 @@ export default function CaseVideoCard({ caso, tone = "light" }: { caso: CaseDado
         <div className="relative w-full mx-auto" style={{ maxWidth: LARGURA_MAX[formato], aspectRatio: RATIO[formato] }}>
           <video
             ref={videoRef}
-            src={caso.video_url ?? undefined}
+            src={video?.src ?? undefined}
+            poster={video?.poster}
             muted
             autoPlay
             loop
             playsInline
-            preload="auto"
+            preload="none"
             disablePictureInPicture
             disableRemotePlayback
             tabIndex={-1}
             aria-label={`Vídeo do case: ${caso.setor}`}
             onContextMenu={(e) => e.preventDefault()}
-            className="block w-full h-full rounded-[6px] bg-black pointer-events-none select-none"
+            className="block w-full h-full rounded-[6px] bg-black object-cover pointer-events-none select-none"
           />
           {bloqueado && (
             <button

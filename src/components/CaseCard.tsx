@@ -8,6 +8,10 @@ export type CaseDado = {
   resultado: string;
   video_url?: string | null;
   video_formato?: string | null;
+  video_claro_url?: string | null;
+  poster_claro_url?: string | null;
+  video_escuro_url?: string | null;
+  poster_escuro_url?: string | null;
 };
 
 /**
