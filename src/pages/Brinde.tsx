@@ -6,6 +6,7 @@ import { useEffect } from "react";
  * e registrar a rota "/brinde" no router do projeto.
  *
  * Preencha antes de publicar:
+ *  - public/logo-nodus-branco.png (arquivo do logo, na pasta public do projeto)
  *  - WHATSAPP_NUMBER (formato 55 + DDD + número, só dígitos)
  *  - FOTOS (urls das fotos da fotógrafa; se ficar vazio, a seção some)
  */
@@ -51,10 +52,7 @@ export default function Brinde() {
       {/* Topo */}
       <section style={{ background: C.night, color: C.paper }}>
         <div className="mx-auto max-w-5xl px-6 pb-16 pt-8 sm:pb-24">
-          <div className="mb-14 flex items-baseline gap-2 sm:mb-20">
-            <span className="text-2xl font-semibold lowercase tracking-tight">nodus</span>
-            <span className="text-sm font-normal lowercase opacity-70">tecnologia</span>
-          </div>
+          <img src="/logo-nodus-branco.png" alt="nodus tecnologia" className="mb-14 h-20 w-auto sm:mb-20 sm:h-24" />
 
           <h1 className="max-w-3xl text-[clamp(2.25rem,6.5vw,4.75rem)] font-semibold leading-[1.05] tracking-tight">
             feche os olhos.
