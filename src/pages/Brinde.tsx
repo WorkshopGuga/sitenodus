@@ -26,7 +26,7 @@ const SKY = "#5B9CF6";
 
 export default function Brinde() {
   useSeo({
-    titulo: "feche os olhos. o que você descobre? — nodus tecnologia",
+    titulo: "Feche os olhos. O que você descobre? — Nodus Tecnologia",
     descricao:
       "A história da cerveja que a Nodus Tecnologia fez com as próprias mãos, e o que ela diz sobre o nosso trabalho sob medida.",
     caminho: "/brinde",
@@ -42,11 +42,11 @@ export default function Brinde() {
       <section className="bg-ink text-white bg-[radial-gradient(1100px_620px_at_78%_20%,rgba(39,85,196,.32),transparent_65%)]">
         <div className="mx-auto max-w-5xl px-5 md:px-10 pt-32 pb-16 md:pt-40 md:pb-24">
           <h1 className="m-0 max-w-3xl font-bold text-[clamp(38px,6vw,76px)] leading-[1.04] tracking-[-.05em]">
-            feche os olhos.
-            <br />o que você descobre?
+            Feche os olhos.
+            <br />O que você descobre?
           </h1>
           <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-white/75">
-            esta cerveja foi feita por nós, com as nossas próprias mãos. aqui está a história.
+            Esta cerveja foi feita por nós, com as nossas próprias mãos. Aqui está a história.
           </p>
 
           <div className="mt-12 overflow-hidden rounded-2xl bg-black" style={{ boxShadow: `0 0 0 1px ${BLUE}` }}>
@@ -56,10 +56,10 @@ export default function Brinde() {
               playsInline
               preload="metadata"
               poster={VIDEO_POSTER}
-              aria-label="vídeo: como nasceu a cerveja da Nodus Tecnologia"
+              aria-label="Vídeo: como nasceu a cerveja da Nodus Tecnologia"
             >
               <source src={VIDEO_SRC} type="video/mp4" />
-              seu navegador não conseguiu reproduzir o vídeo.
+              Seu navegador não conseguiu reproduzir o vídeo.
             </video>
           </div>
         </div>
@@ -76,18 +76,18 @@ export default function Brinde() {
           }}
         >
           <h2 className="m-0 text-[clamp(26px,3.6vw,38px)] font-bold leading-[1.15] tracking-[-.04em]">
-            toda boa cerveja tem uma base: água, malte, trigo.
+            Toda boa cerveja tem uma base: água, malte, trigo.
           </h2>
           <div className="mt-8 space-y-5 text-[16.5px] leading-[1.75]">
             <p className="m-0">
-              mas o que faz ela ser lembrada são as especiarias. nesta witbier, são duas: coentro e casca de limão. você
+              Mas o que faz ela ser lembrada são as especiarias. Nesta witbier, são duas: coentro e casca de limão. Você
               não vê, mas sente.
             </p>
             <p className="m-0">
-              na Nodus Tecnologia é igual. a base é construir algo que funcione de verdade. o que faz a diferença é o
+              Na Nodus Tecnologia é igual. A base é construir algo que funcione de verdade. O que faz a diferença é o
               que a gente coloca a mais: experiência e visão para criar algo que ninguém tem igual.
             </p>
-            <p className="m-0">por isso, em vez de comprar um brinde pronto, a gente preferiu fazer o nosso.</p>
+            <p className="m-0">Por isso, em vez de comprar um brinde pronto, a gente preferiu fazer o nosso.</p>
           </div>
         </div>
       </section>
@@ -96,16 +96,16 @@ export default function Brinde() {
       {FOTOS.length > 0 && (
         <section className="px-5 md:px-10 pb-16 md:pb-24" style={{ background: PAPER }}>
           <div className="mx-auto max-w-5xl text-ink">
-            <h2 className="m-0 text-[clamp(24px,3vw,34px)] font-bold tracking-[-.04em]">como nasceu esta cerveja</h2>
+            <h2 className="m-0 text-[clamp(24px,3vw,34px)] font-bold tracking-[-.04em]">Como nasceu esta cerveja</h2>
             <p className="mt-3 max-w-xl leading-[1.7] text-ink/70">
-              do malte à garrafa, tudo feito pela nossa equipe. alguns momentos do processo.
+              Do malte à garrafa, tudo feito pela nossa equipe. Alguns momentos do processo.
             </p>
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {FOTOS.map((src, i) => (
                 <img
                   key={src}
                   src={src}
-                  alt={`bastidores da produção da cerveja, foto ${i + 1}`}
+                  alt={`Bastidores da produção da cerveja, foto ${i + 1}`}
                   loading="lazy"
                   className="aspect-[4/5] w-full rounded-lg object-cover"
                 />
@@ -119,11 +119,11 @@ export default function Brinde() {
       <section className="px-5 md:px-10 pb-16 md:pb-24" style={{ background: PAPER }}>
         <div className="mx-auto max-w-2xl text-ink">
           <h2 className="m-0 text-[clamp(24px,3vw,34px)] font-bold tracking-[-.04em]">
-            o que isso diz sobre o nosso trabalho
+            O que isso diz sobre o nosso trabalho
           </h2>
           <p className="mt-4 text-[16.5px] leading-[1.75]">
-            fazemos sob medida: entendemos como a sua empresa funciona e construímos o que ela precisa, do zero. uma
-            cerveja, um sistema, uma automação. a lógica é a mesma.
+            Fazemos sob medida: entendemos como a sua empresa funciona e construímos o que ela precisa, do zero. Uma
+            cerveja, um sistema, uma automação. A lógica é a mesma.
           </p>
         </div>
       </section>
@@ -131,7 +131,7 @@ export default function Brinde() {
       {/* Convite */}
       <section className="bg-ink bg-[radial-gradient(800px_420px_at_50%_0%,rgba(39,85,196,.34),transparent_70%)] px-5 md:px-10 py-20 md:py-32 text-center text-white">
         <h2 className="mx-auto m-0 max-w-[760px] font-bold text-[clamp(30px,4.6vw,58px)] leading-[1.06] tracking-[-.05em]">
-          como podemos criar a especiaria do seu negócio, juntos?
+          Como podemos criar a especiaria do seu negócio, juntos?
         </h2>
         <a
           href={whatsappHref}
@@ -140,10 +140,10 @@ export default function Brinde() {
           className="mt-10 inline-block rounded-full px-8 py-4 text-[16px] font-bold no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           style={{ background: SKY, color: "#0D0D1A" }}
         >
-          conversar no WhatsApp
+          Conversar no WhatsApp
         </a>
         <p className="mx-auto mt-14 mb-0 text-[12px] text-white/50">
-          aprecie com moderação. venda proibida para menores de 18 anos.
+          Aprecie com moderação. Venda proibida para menores de 18 anos.
         </p>
       </section>
 
